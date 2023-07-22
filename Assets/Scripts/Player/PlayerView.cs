@@ -8,6 +8,7 @@ namespace StatePattern.Player
     public class PlayerView : MonoBehaviour
     {
         private PlayerController controller;
+        [SerializeField] private ParticleSystem attackVFX;
 
         public Rigidbody Rigidbody { get; private set; }
 
@@ -20,6 +21,8 @@ namespace StatePattern.Player
         private void FixedUpdate() => controller?.FixedUpdatePlayer();
 
         public void TakeDamage(int damage) => controller.TakeDamage(damage);
+
+        public void PlayAttackVFX() => attackVFX.Play();
 
         private void OnTriggerEnter(Collider other)
         {

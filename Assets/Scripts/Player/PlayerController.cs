@@ -76,14 +76,15 @@ namespace StatePattern.Player
 
         private void HandleAttack()
         {
+            playerView.PlayAttackVFX();
             if(enemiesInRange.Count > 0)
             {
-                GameService.Instance.SoundService.PlaySoundEffects(SoundType.PLAYER_ATTACK);
                 foreach(EnemyController enemy in enemiesInRange)
                 {
                     enemy.Die();
                 }
                 enemiesInRange.Clear();
+                GameService.Instance.SoundService.PlaySoundEffects(SoundType.PLAYER_ATTACK);
             }
             else
             {

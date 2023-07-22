@@ -13,6 +13,7 @@ namespace StatePattern.Enemy
         private SphereCollider rangeTriggerCollider;
         private PlayerController target;
         [SerializeField] private ParticleSystem muzzleFlash;
+        [SerializeField] private ParticleSystem bloodSplatter;
 
         private void Start()
         {
@@ -46,7 +47,14 @@ namespace StatePattern.Enemy
                 Controller.PlayerExitedRange();
         }
 
-        public void Destroy() => Destroy(gameObject);
+        public void Destroy() => StartCoroutine(EnemyDeathSequence());
+
+        private IEnumerator EnemyDeathSequence()
+        {
+            bloodSplatter.Play();
+            yield return new WaitForSeconds(0.1f);
+            Destroy(gameObject);
+        }
 
     }
 }

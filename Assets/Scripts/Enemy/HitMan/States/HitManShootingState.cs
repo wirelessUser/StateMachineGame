@@ -32,6 +32,7 @@ namespace StatePattern.Enemy.States
                 {
                     Owner.Shoot();
                     shootTimer = Owner.Data.RateOfFire;
+                    stateMachine.ChangeState(HitManStates.Teleporting);
                 }
             }
         }

@@ -60,6 +60,7 @@ namespace StatePattern.Enemy
 
         public void EnemyDied(EnemyController deadEnemy)
         {
+            GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_DEATH);
             activeEnemies.Remove(deadEnemy);
             // Update Enemy Count in UI.
             if (DidPlayerWin()) 
