@@ -1,4 +1,5 @@
-﻿using StatePattern.Main;
+﻿using StatePattern.Enemy.Bullet;
+using StatePattern.Main;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -49,7 +50,6 @@ namespace StatePattern.Enemy
             GameService.Instance.EnemyService.EnemyDied(this);
             enemyView.Destroy();
             /*  TODO : 
-             *  Play Enemy Death Sound.
              *  Play Particle Effects if any.
              * */
         }
@@ -58,7 +58,14 @@ namespace StatePattern.Enemy
 
         public void SetRotaion(Quaternion desiredRotation) => enemyView.transform.rotation = desiredRotation;
 
-        public virtual void PlayerEnteredRange() { }
+        public void Shoot()
+        {
+            enemyView.PlayShootingEffect();
+            GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_SHOOT);
+            BulletController bullet = new BulletController(enemyView.transform, enemyScriptableObject.BulletData);
+        }
+
+        public virtual void PlayerEnteredRange() => GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_ALERT);
 
         public virtual void PlayerExitedRange() { }
 

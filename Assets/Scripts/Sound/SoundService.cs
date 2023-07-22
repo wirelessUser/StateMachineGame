@@ -14,7 +14,7 @@ namespace StatePattern.Sound
             this.soundScriptableObject = soundScriptableObject;
             audioEffects = audioEffectSource;
             backgroundMusic = bgMusicSource;
-            // PlaybackgroundMusic(SoundType.BACKGROUND_MUSIC, true);
+            PlaybackgroundMusic(SoundType.BACKGROUND_MUSIC, true);
         }
 
         public void PlaySoundEffects(SoundType soundType, bool loopSound = false)

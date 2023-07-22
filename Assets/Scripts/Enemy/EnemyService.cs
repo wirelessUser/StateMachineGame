@@ -64,6 +64,7 @@ namespace StatePattern.Enemy
             // Update Enemy Count in UI.
             if (DidPlayerWin()) 
             {
+                GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.GAME_WON);
                 Debug.Log("Player Won the Game.");
                 // Game Won Logic.
             }

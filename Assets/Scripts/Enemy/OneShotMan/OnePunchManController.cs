@@ -1,5 +1,6 @@
 using UnityEngine;
 using StatePattern.Enemy.Bullet;
+using StatePattern.Main;
 
 namespace StatePattern.Enemy
 {
@@ -17,14 +18,12 @@ namespace StatePattern.Enemy
 
         public override void UpdateEnemy() => stateMachine.Update();
 
-        public override void PlayerEnteredRange() => stateMachine.ChangeState(OnePunchManStates.Shooting);
+        public override void PlayerEnteredRange()
+        {
+            base.PlayerEnteredRange();
+            stateMachine.ChangeState(OnePunchManStates.Shooting);
+        }
 
         public override void PlayerExitedRange() => stateMachine.ChangeState(OnePunchManStates.Idle);
-
-        public void Shoot()
-        {
-            enemyView.PlayShootingEffect();
-            BulletController bullet = new BulletController(enemyView.transform, enemyScriptableObject.BulletData);
-        }
     }
 }

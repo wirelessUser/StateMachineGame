@@ -19,15 +19,12 @@ namespace StatePattern.Enemy
 
         public override void UpdateEnemy() => stateMachine.Update();
 
-        public override void PlayerEnteredRange() => stateMachine.ChangeState(HitManStates.Following);
+        public override void PlayerEnteredRange()
+        {
+            base.PlayerEnteredRange();
+            stateMachine.ChangeState(HitManStates.Following);
+        }
 
         public override void PlayerExitedRange() => stateMachine.ChangeState(HitManStates.Idle);
-
-        public void Shoot()
-        {
-            enemyView.PlayShootingEffect();
-            BulletController bullet = new BulletController(enemyView.transform, enemyScriptableObject.BulletData);
-            stateMachine.ChangeState(HitManStates.Teleporting);
-        }
     }
 }
