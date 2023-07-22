@@ -4,8 +4,15 @@ namespace StatePattern.Sound
     public enum SoundType
     {
         BACKGROUND_MUSIC,
-        SOUND_TYPE_1,
-        SOUND_TYPE_2,
-        SOUND_TYPE_3
+        PLAYER_HIT,
+        PLAYER_SLASH,
+        PLAYER_ATTACK,
+        ENEMY_ALERT,
+        ENEMY_SHOOT,
+        ENEMY_TELEPORT,
+        ENEMY_CLONE,
+        ENEMY_DEATH,
+        GAME_WON,
+        GAME_LOST
     }
 }
