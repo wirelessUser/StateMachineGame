@@ -15,8 +15,13 @@ namespace StatePattern.Enemy.Bullet
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.GetComponent<PlayerView>() != null && !other.isTrigger)
-                controller.HitPlayer(other.GetComponent<PlayerView>());
+            if(other.GetComponent<PlayerView>() != null)
+            {
+                if (!other.isTrigger)
+                    controller.HitPlayer(other.GetComponent<PlayerView>());
+                else
+                    return;
+            }
             Destroy(this.gameObject);
         }
     }
