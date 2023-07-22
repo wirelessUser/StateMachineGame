@@ -1,4 +1,6 @@
 ﻿using StatePattern.Enemy;
+using StatePattern.Main;
+using StatePattern.Sound;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,18 +78,23 @@ namespace StatePattern.Player
         {
             if(enemiesInRange.Count > 0)
             {
-                // TODO : Play Attack Sound.
+                GameService.Instance.SoundService.PlaySoundEffects(SoundType.PLAYER_ATTACK);
                 foreach(EnemyController enemy in enemiesInRange)
                 {
                     enemy.Die();
                 }
                 enemiesInRange.Clear();
             }
+            else
+            {
+                GameService.Instance.SoundService.PlaySoundEffects(SoundType.PLAYER_SLASH);
+            }
         }
 
         public void TakeDamage(int damageToInflict)
         {
             currentHealth -= damageToInflict;
+            GameService.Instance.SoundService.PlaySoundEffects(SoundType.PLAYER_HIT);
             if(currentHealth <= 0)
             {
                 currentHealth = 0;
