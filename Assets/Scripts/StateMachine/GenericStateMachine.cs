@@ -26,7 +26,6 @@ namespace StatePattern.StateMachine
 
         protected void ChangeState(IState<T> newState)
         {
-            Debug.Log($"Entering {newState} State");
             currentState?.OnStateExit();
             currentState = newState;
             currentState?.OnStateEnter();

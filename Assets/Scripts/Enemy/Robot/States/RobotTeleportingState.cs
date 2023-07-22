@@ -32,10 +32,8 @@ namespace StatePattern.Enemy.States
 
         private Vector3 GetRandomNavMeshPoint()
         {
-            Vector3 randomDirection = Random.insideUnitSphere * 10f;
-            randomDirection += Owner.Position;
+            Vector3 randomDirection = Random.insideUnitSphere * 10f + Owner.Position;
 
-            // Find the nearest point on the NavMesh to the random direction
             NavMeshHit hit;
             NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas);
 
