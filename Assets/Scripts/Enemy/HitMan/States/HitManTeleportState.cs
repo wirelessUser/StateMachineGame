@@ -31,10 +31,10 @@ namespace StatePattern.Enemy.States
 
         private Vector3 GetRandomNavMeshPoint()
         {
-            Vector3 randomDirection = Random.insideUnitSphere * 10f + Owner.Position;
+            Vector3 randomDirection = Random.insideUnitSphere * 5f + Owner.Position;
             
             NavMeshHit hit;
-            NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas);
+            NavMesh.SamplePosition(randomDirection, out hit, 5f, NavMesh.AllAreas);
 
             return hit.position;
         }
