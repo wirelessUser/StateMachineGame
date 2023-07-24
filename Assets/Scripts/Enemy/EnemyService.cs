@@ -67,7 +67,7 @@ namespace StatePattern.Enemy
             {
                 GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.GAME_WON);
                 Debug.Log("Player Won the Game.");
-                // Game Won Logic.
+                GameService.Instance.UIService.GameWon();
             }
         }
 

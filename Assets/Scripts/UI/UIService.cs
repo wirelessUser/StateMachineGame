@@ -11,10 +11,23 @@ namespace StatePattern.UI
         [SerializeField] private LevelSelectionUIView levelSelectionView;
         [SerializeField] private LevelButtonView levelButtonPrefab;
 
-        private void Start() => levelSelectionController = new LevelSelectionUIController(levelSelectionView, levelButtonPrefab);
+        [Header("Level ENd UI")]
+        private LevelEndUIController levelEndController;
+        [SerializeField] private LevelEndUIView levelEndView;
+
+        private void Start()
+        {
+            levelSelectionController = new LevelSelectionUIController(levelSelectionView, levelButtonPrefab);
+            levelEndController = new LevelEndUIController(levelEndView);
+        }
 
         public void Init(int levelCount) => ShowLevelSelectionUI(levelCount);
 
         private void ShowLevelSelectionUI(int levelCount) => levelSelectionController.Show(levelCount);
+
+        public void GameWon() => levelEndController.PlayerWon();
+
+        public void GameLost() => levelEndController.PlayerLost();
+
     }
 }

@@ -107,7 +107,7 @@ namespace StatePattern.Player
         private void PlayerDied()
         {
             GameService.Instance.SoundService.PlaySoundEffects(SoundType.GAME_LOST);
-            // Player Death & Game Over Logic
+            GameService.Instance.UIService.GameLost();
         }
 
         public void AddEnemy(EnemyController enemy) => enemiesInRange.Add(enemy);

@@ -30,7 +30,6 @@ namespace StatePattern.Enemy
             enemyView = Object.Instantiate(enemyScriptableObject.EnemyPrefab);
             enemyView.transform.position = enemyScriptableObject.SpawnPosition;
             enemyView.transform.rotation = Quaternion.Euler(enemyScriptableObject.SpawnRotation);
-            
         }
 
         private void InitializeVariables()
