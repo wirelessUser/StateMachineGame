@@ -15,6 +15,7 @@ namespace StatePattern.Enemy
         public Vector3 SpawnRotation;
         public float MovementSpeed;
         public int MaximumHealth;
+        public float RangeRadius;
 
         public float IdleTime;
         public float RotationSpeed;

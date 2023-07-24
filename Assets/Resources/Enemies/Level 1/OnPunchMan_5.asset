@@ -19,8 +19,11 @@ MonoBehaviour:
   SpawnRotation: {x: 0, y: -90, z: 0}
   MovementSpeed: 5
   MaximumHealth: 10
+  RangeRadius: 4
   IdleTime: 2
   RotationSpeed: 100
   RotationThreshold: 0.5
   BulletData: {fileID: 11400000, guid: cfa5b8d473156f34f8a4255079c7aaa0, type: 2}
   RateOfFire: 1
+  PatrollingPoints: []
+  PlayerStoppingDistance: 0
