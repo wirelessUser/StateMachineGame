@@ -53,27 +53,32 @@ namespace StatePattern.Player
 
             Vector3 movementDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
 
-            RotatePlayer(movementDirection);
-            MovePlayer(movementDirection);
+            if(movementDirection != Vector3.zero)
+            {
+                RotatePlayer(movementDirection);
+                MovePlayer(movementDirection);
+            }
         }
 
         private void RotatePlayer(Vector3 movementDirection)
         {
-            if (movementDirection != Vector3.zero)
-                playerView.transform.eulerAngles = CalculateTargetRotation(movementDirection);
+            float targetRotation = GetTargetRotation(movementDirection);
+            playerView.transform.eulerAngles = CalculateRotationToSet(targetRotation);
         }
 
-        private Vector3 CalculateTargetRotation(Vector3 movementDirection)
-        {
-            float targetRotation = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
-            return Vector3.up * Mathf.MoveTowardsAngle(playerView.transform.eulerAngles.y, targetRotation, playerScriptableObject.RotationSpeed * Time.deltaTime);
-        }
+        private float GetTargetRotation(Vector3 movementDirection) => Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+
+        private Vector3 CalculateRotationToSet(float targetRotation) => Vector3.up * Mathf.MoveTowardsAngle(playerView.transform.eulerAngles.y, targetRotation, playerScriptableObject.RotationSpeed * Time.deltaTime);
 
         private void MovePlayer(Vector3 movementDirection)
         {
-            Vector3 moveVector = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f) * movementDirection;
-            playerView.Rigidbody.MovePosition(playerView.Rigidbody.position + moveVector * playerScriptableObject.MovementSpeed * Time.deltaTime);
+            Vector3 moveVector = GetMovementVector(movementDirection);
+            playerView.Rigidbody.MovePosition(GetPositionToMoveAt(moveVector));
         }
+
+        private Vector3 GetMovementVector(Vector3 movementDirection) => Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f) * movementDirection;
+
+        private Vector3 GetPositionToMoveAt(Vector3 moveVector) => playerView.Rigidbody.position + moveVector * playerScriptableObject.MovementSpeed * Time.deltaTime;
 
         private void HandleAttack()
         {
