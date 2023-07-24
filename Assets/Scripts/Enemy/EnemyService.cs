@@ -9,6 +9,7 @@ namespace StatePattern.Enemy
         private List<EnemyScriptableObject> enemyScriptableObjects;
 
         private List<EnemyController> activeEnemies;
+        private int totalEnemies;
 
         public EnemyService(List<EnemyScriptableObject> enemyScriptableObjects)
         {
@@ -27,6 +28,9 @@ namespace StatePattern.Enemy
             {
                 CreateEnemy(enemySO);
             }
+
+            totalEnemies = activeEnemies.Count;
+            GameService.Instance.UIService.UpdateEnemyCount(activeEnemies.Count, totalEnemies);
         }
 
         public EnemyController CreateEnemy(EnemyScriptableObject enemyScriptableObject)
@@ -62,7 +66,7 @@ namespace StatePattern.Enemy
         {
             GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_DEATH);
             activeEnemies.Remove(deadEnemy);
-            // Update Enemy Count in UI.
+            GameService.Instance.UIService.UpdateEnemyCount(activeEnemies.Count, totalEnemies);
             if (DidPlayerWin()) 
             {
                 GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.GAME_WON);

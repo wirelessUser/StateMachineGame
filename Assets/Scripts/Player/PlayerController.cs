@@ -35,6 +35,7 @@ namespace StatePattern.Player
         {
             currentHealth = playerScriptableObject.MaximumHealth;
             enemiesInRange = new List<EnemyController>();
+            GameService.Instance.UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
         }
 
         public void UpdatePlayer()
@@ -102,7 +103,7 @@ namespace StatePattern.Player
                 PlayerDied();
                 GameService.Instance.EnemyService.PlayerDied();
             }
-            // TODO:    Update UI Health
+            GameService.Instance.UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
         }
 
         private void PlayerDied()

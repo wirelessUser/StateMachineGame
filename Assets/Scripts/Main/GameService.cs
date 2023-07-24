@@ -34,8 +34,8 @@ namespace StatePattern.Main
 
         private void Start()
         {
-            uiService.Init(levelScriptableObjects.Count);
             EventService = new EventService();
+            uiService.Init(levelScriptableObjects.Count);
             SoundService = new SoundService(soundScriptableObject, sfxSource, bgMusicSource);
             LevelService = new LevelService(levelScriptableObjects);
             PlayerService = new PlayerService(playerScriptableObject);
