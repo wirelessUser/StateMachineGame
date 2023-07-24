@@ -1,5 +1,6 @@
 ﻿using StatePattern.Enemy.Bullet;
 using StatePattern.Main;
+using StatePattern.Player;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -53,9 +54,9 @@ namespace StatePattern.Enemy
             enemyView.Destroy();
         }
 
-        public void SetRotaion(Vector3 eulerAngles) => enemyView.transform.rotation = Quaternion.Euler(eulerAngles);
+        public void SetRotation(Vector3 eulerAngles) => enemyView.transform.rotation = Quaternion.Euler(eulerAngles);
 
-        public void SetRotaion(Quaternion desiredRotation) => enemyView.transform.rotation = desiredRotation;
+        public void SetRotation(Quaternion desiredRotation) => enemyView.transform.rotation = desiredRotation;
 
         public void Shoot()
         {
@@ -66,7 +67,7 @@ namespace StatePattern.Enemy
 
         public void SetState(EnemyState stateToSet) => currentState = stateToSet;
 
-        public virtual void PlayerEnteredRange() => GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_ALERT);
+        public virtual void PlayerEnteredRange(PlayerController targetToSet) => GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_ALERT);
 
         public virtual void PlayerExitedRange() { }
 

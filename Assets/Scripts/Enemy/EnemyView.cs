@@ -44,7 +44,7 @@ namespace StatePattern.Enemy
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<PlayerView>() != null && !other.isTrigger)
-                Controller.PlayerEnteredRange();
+                Controller.PlayerEnteredRange(other.GetComponent<PlayerView>().Controller);
         }
 
         private void OnTriggerExit(Collider other)

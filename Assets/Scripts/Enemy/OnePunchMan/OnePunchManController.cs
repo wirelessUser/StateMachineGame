@@ -1,6 +1,7 @@
 using UnityEngine;
 using StatePattern.Enemy.Bullet;
 using StatePattern.Main;
+using StatePattern.Player;
 
 namespace StatePattern.Enemy
 {
@@ -10,7 +11,10 @@ namespace StatePattern.Enemy
         private bool isRotating;
         private bool isShooting;
         private float idleTimer;
+        private float shootTimer;
         private float targetRotation;
+        private PlayerController target;
+
 
         public OnePunchManController(EnemyScriptableObject enemyScriptableObject) : base(enemyScriptableObject)
         {
@@ -24,6 +28,7 @@ namespace StatePattern.Enemy
             isRotating = false;
             isShooting = false;
             idleTimer = enemyScriptableObject.IdleTime;
+            shootTimer = enemyScriptableObject.RateOfFire;
         }
 
         public override void UpdateEnemy()
@@ -31,7 +36,7 @@ namespace StatePattern.Enemy
             if (currentState == EnemyState.DEACTIVE)
                 return;
 
-            if(isIdle)
+            if(isIdle && !isRotating && !isShooting)
             {
                 idleTimer -= Time.deltaTime;
                 if(idleTimer <= 0)
@@ -42,9 +47,9 @@ namespace StatePattern.Enemy
                 }
             }
 
-            if(isRotating)
+            if(!isIdle && isRotating && !isShooting)
             {
-                SetRotaion(CalculateRotate());
+                SetRotation(CalculateRotation());
                 if(IsRotationComplete())
                 {
                     isIdle = true;
@@ -53,20 +58,50 @@ namespace StatePattern.Enemy
                 }
             }
 
+            if(!isIdle && !isRotating && isShooting)
+            {
+                Quaternion desiredRotation = CalculateRotationTowardsPlayer();
+                SetRotation(RotateTowards(desiredRotation));
+                
+                if(IsFacingPlayer(desiredRotation))
+                {
+                    shootTimer -= Time.deltaTime;
+                    if (shootTimer <= 0)
+                    {
+                        shootTimer = enemyScriptableObject.RateOfFire;
+                        Shoot();
+                    }
+                }
+
+            }
+
         }
 
         private void ResetTimer() => idleTimer = enemyScriptableObject.IdleTime;
 
-        private Vector3 CalculateRotate() => Vector3.up * Mathf.MoveTowardsAngle(Rotation.eulerAngles.y, targetRotation, enemyScriptableObject.RotationSpeed * Time.deltaTime);
+        private Vector3 CalculateRotation() => Vector3.up * Mathf.MoveTowardsAngle(Rotation.eulerAngles.y, targetRotation, enemyScriptableObject.RotationSpeed * Time.deltaTime);
 
         private bool IsRotationComplete() => Mathf.Abs(Mathf.Abs(Rotation.eulerAngles.y) - Mathf.Abs(targetRotation)) < Data.RotationThreshold;
 
-        public override void PlayerEnteredRange()
+        private bool IsFacingPlayer(Quaternion desiredRotation) => Quaternion.Angle(Rotation, desiredRotation) < Data.RotationThreshold;
+
+        private Quaternion CalculateRotationTowardsPlayer()
         {
-            base.PlayerEnteredRange();
+            Vector3 directionToPlayer = target.Position - Position;
+            directionToPlayer.y = 0f;
+            return Quaternion.LookRotation(directionToPlayer, Vector3.up);
+        }
+        
+        private Quaternion RotateTowards(Quaternion desiredRotation) => Quaternion.LerpUnclamped(Rotation, desiredRotation, enemyScriptableObject.RotationSpeed / 30 * Time.deltaTime);
+
+        public override void PlayerEnteredRange(PlayerController targetToSet)
+        {
+            base.PlayerEnteredRange(targetToSet);
             isIdle = false;
             isRotating = false;
             isShooting = true;
+            target = targetToSet;
+            shootTimer = 0;
         }
 
         public override void PlayerExitedRange() 

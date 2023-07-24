@@ -7,20 +7,20 @@ namespace StatePattern.Player
 {
     public class PlayerView : MonoBehaviour
     {
-        private PlayerController controller;
+        public PlayerController Controller { get; private set; }
         [SerializeField] private ParticleSystem attackVFX;
 
         public Rigidbody Rigidbody { get; private set; }
 
         private void Start() => Rigidbody = GetComponent<Rigidbody>();
 
-        public void SetController(PlayerController controllerToSet) => controller = controllerToSet;
+        public void SetController(PlayerController controllerToSet) => Controller = controllerToSet;
 
-        private void Update() => controller?.UpdatePlayer();
+        private void Update() => Controller?.UpdatePlayer();
 
-        private void FixedUpdate() => controller?.FixedUpdatePlayer();
+        private void FixedUpdate() => Controller?.FixedUpdatePlayer();
 
-        public void TakeDamage(int damage) => controller.TakeDamage(damage);
+        public void TakeDamage(int damage) => Controller.TakeDamage(damage);
 
         public void PlayAttackVFX() => attackVFX.Play();
 
@@ -28,7 +28,7 @@ namespace StatePattern.Player
         {
             if(other.GetComponent<EnemyView>() != null && !other.isTrigger)
             {
-                controller.AddEnemy(other.GetComponent<EnemyView>().Controller);
+                Controller.AddEnemy(other.GetComponent<EnemyView>().Controller);
             }
         }
 
@@ -36,7 +36,7 @@ namespace StatePattern.Player
         {
             if (other.GetComponent<EnemyView>() != null && !other.isTrigger)
             {
-                controller.RemoveEnemy(other.GetComponent<EnemyView>().Controller);
+                Controller.RemoveEnemy(other.GetComponent<EnemyView>().Controller);
             }
         }
     }
