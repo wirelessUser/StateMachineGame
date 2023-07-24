@@ -31,14 +31,16 @@ namespace StatePattern.Main
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource bgMusicSource;
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             EventService = new EventService();
-            uiService.Init(levelScriptableObjects.Count);
             SoundService = new SoundService(soundScriptableObject, sfxSource, bgMusicSource);
             LevelService = new LevelService(levelScriptableObjects);
             PlayerService = new PlayerService(playerScriptableObject);
             EnemyService = new EnemyService();
         }
+
+        private void Start() => UIService.ShowLevelSelectionUI(levelScriptableObjects.Count);
     }
 }

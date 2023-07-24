@@ -25,17 +25,12 @@ namespace StatePattern.UI
             levelSelectionController = new LevelSelectionUIController(levelSelectionView, levelButtonPrefab);
             levelEndController = new LevelEndUIController(levelEndView);
             gameplayController = new GameplayUIController(gameplayView);
-        }
-
-        public void Init(int levelCount)
-        {
             SubscribeToEvents();
-            ShowLevelSelectionUI(levelCount);
         }
 
         private void SubscribeToEvents() => GameService.Instance.EventService.OnLevelSelected.AddListener(ShowGameplayUI);
         
-        private void ShowLevelSelectionUI(int levelCount) => levelSelectionController.Show(levelCount);
+        public void ShowLevelSelectionUI(int levelCount) => levelSelectionController.Show(levelCount);
 
         private void ShowGameplayUI(int levelId) => gameplayController.Show();
 
