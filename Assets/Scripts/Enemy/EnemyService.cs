@@ -1,4 +1,7 @@
+using StatePattern.Level;
 using StatePattern.Main;
+using StatePattern.Sound;
+using StatePattern.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,31 +9,40 @@ namespace StatePattern.Enemy
 {
     public class EnemyService
     {
-        private List<EnemyScriptableObject> enemyScriptableObjects;
+        private SoundService SoundService => GameService.Instance.SoundService;
+        private UIService UIService => GameService.Instance.UIService;
+        private LevelService LevelService => GameService.Instance.LevelService;
 
         private List<EnemyController> activeEnemies;
         private int totalEnemies;
 
-        public EnemyService(List<EnemyScriptableObject> enemyScriptableObjects)
+        public EnemyService()
         {
-            this.enemyScriptableObjects = enemyScriptableObjects;
-            activeEnemies = new List<EnemyController>();
+            InitializeVariables();
             SubscribeToEvents();
         }
+
+        private void InitializeVariables() => activeEnemies = new List<EnemyController>();
 
         private void SubscribeToEvents() => GameService.Instance.EventService.OnLevelSelected.AddListener(SpawnEnemies);
 
         public void SpawnEnemies(int levelId)
         {
-            List<EnemyScriptableObject> enemyData = GetEnemyDataForLevel(levelId);
-
-            foreach(EnemyScriptableObject enemySO in enemyData)
+            List<EnemyScriptableObject> enemyDataForLevel = LevelService.GetEnemyDataForLevel(levelId);
+            
+            foreach(EnemyScriptableObject enemySO in enemyDataForLevel)
             {
-                CreateEnemy(enemySO);
+                EnemyController enemy = CreateEnemy(enemySO);
+                activeEnemies.Add(enemy);
             }
 
+            SetEnemyCount();
+        }
+
+        private void SetEnemyCount()
+        {
             totalEnemies = activeEnemies.Count;
-            GameService.Instance.UIService.UpdateEnemyCount(activeEnemies.Count, totalEnemies);
+            UIService.UpdateEnemyCount(activeEnemies.Count, totalEnemies);
         }
 
         public EnemyController CreateEnemy(EnemyScriptableObject enemyScriptableObject)
@@ -42,36 +54,23 @@ namespace StatePattern.Enemy
                 case EnemyType.OnePunchMan:
                     enemy = new OnePunchManController(enemyScriptableObject);
                     break;
-                case EnemyType.DashMan:
-                    enemy = new DashManController(enemyScriptableObject);
-                    break;
-                case EnemyType.Hitman:
-                    enemy = new HitManController(enemyScriptableObject);
-                    break;
-                case EnemyType.Robot:
-                    enemy = new RobotController(enemyScriptableObject);
-                    break;
                 default:
                     enemy = new EnemyController(enemyScriptableObject);
                     break;
             }
 
-            activeEnemies.Add(enemy);
             return enemy;
         }
 
-        private List<EnemyScriptableObject> GetEnemyDataForLevel(int levelId) => enemyScriptableObjects.FindAll(enemySO => enemySO.LevelID == levelId);
-
         public void EnemyDied(EnemyController deadEnemy)
         {
-            GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_DEATH);
             activeEnemies.Remove(deadEnemy);
-            GameService.Instance.UIService.UpdateEnemyCount(activeEnemies.Count, totalEnemies);
-            if (DidPlayerWin()) 
+            SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_DEATH);
+            UIService.UpdateEnemyCount(activeEnemies.Count, totalEnemies);
+            if (PlayerWon()) 
             {
-                GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.GAME_WON);
-                Debug.Log("Player Won the Game.");
-                GameService.Instance.UIService.GameWon();
+                SoundService.PlaySoundEffects(Sound.SoundType.GAME_WON);
+                UIService.GameWon();
             }
         }
 
@@ -83,6 +82,6 @@ namespace StatePattern.Enemy
             }
         }
 
-        private bool DidPlayerWin() => activeEnemies.Count == 0;
+        private bool PlayerWon() => activeEnemies.Count == 0;
     }
 }

@@ -26,7 +26,6 @@ namespace StatePattern.Main
         [SerializeField] private SoundScriptableObject soundScriptableObject;
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
         [SerializeField] private List<LevelScriptableObject> levelScriptableObjects;
-        [SerializeField] private List<EnemyScriptableObject> enemyScriptableObjects;
 
         // Scene References:
         [SerializeField] private AudioSource sfxSource;
@@ -39,7 +38,7 @@ namespace StatePattern.Main
             SoundService = new SoundService(soundScriptableObject, sfxSource, bgMusicSource);
             LevelService = new LevelService(levelScriptableObjects);
             PlayerService = new PlayerService(playerScriptableObject);
-            EnemyService = new EnemyService(enemyScriptableObjects);
+            EnemyService = new EnemyService();
         }
     }
 }

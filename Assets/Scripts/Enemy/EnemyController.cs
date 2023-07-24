@@ -38,13 +38,13 @@ namespace StatePattern.Enemy
         {
             SetState(EnemyState.ACTIVE);
             currentHealth = enemyScriptableObject.MaximumHealth;
-            enemyView.SetTarget(GameService.Instance.PlayerService.GetPlayer());
         }
 
         public void InitializeAgent()
         {
             Agent.enabled = true;
             Agent.SetDestination(enemyScriptableObject.SpawnPosition);
+            Agent.speed = enemyScriptableObject.MovementSpeed;
         }
 
         public virtual void Die() 

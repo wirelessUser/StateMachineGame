@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StatePattern.Main;
 using StatePattern.Events;
+using StatePattern.Enemy;
 
 namespace StatePattern.Level
 {
@@ -22,5 +23,7 @@ namespace StatePattern.Level
             var levelData = levelScriptableObjects.Find(levelSO => levelSO.ID == levelID);
             Object.Instantiate(levelData.LevelPrefab);
         }
+
+        public List<EnemyScriptableObject> GetEnemyDataForLevel(int levelId) => levelScriptableObjects.Find(level => level.ID == levelId).EnemyScriptableObjects;
     }
 }

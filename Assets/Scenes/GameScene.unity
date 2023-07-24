@@ -767,33 +767,6 @@ MonoBehaviour:
   playerScriptableObject: {fileID: 11400000, guid: 4240caefbf2e2f64eb8046b7c92646e0, type: 2}
   levelScriptableObjects:
   - {fileID: 11400000, guid: bada358cc71564c49831629438d87724, type: 2}
-  - {fileID: 11400000, guid: 3ceefc333a7c35a4d8743f64f88754db, type: 2}
-  - {fileID: 11400000, guid: 7c34e5ad108e2fe42992e2b182ef0931, type: 2}
-  - {fileID: 11400000, guid: be7c349780d6ac14daa55dee0da426e2, type: 2}
-  enemyScriptableObjects:
-  - {fileID: 11400000, guid: 2e6771f85c08a9c4794ed6d347095ecb, type: 2}
-  - {fileID: 11400000, guid: f83e114877059124fa8825aa47915f64, type: 2}
-  - {fileID: 11400000, guid: 2767823a5905fdc4daa54bc81eb17d8d, type: 2}
-  - {fileID: 11400000, guid: dc694539094db824b919144897cbbf1b, type: 2}
-  - {fileID: 11400000, guid: 159e4d4b8a6495941ae5a973fef84379, type: 2}
-  - {fileID: 11400000, guid: 8c07b835db78bd54fa8d7ad9423004f5, type: 2}
-  - {fileID: 11400000, guid: d3b99b143cbe86c438478c1fefe78301, type: 2}
-  - {fileID: 11400000, guid: f3a9c299d57270f44b4e5f3062de6789, type: 2}
-  - {fileID: 11400000, guid: 6b307bcaea9e45f49bb62a01c858a24b, type: 2}
-  - {fileID: 11400000, guid: 76ee9d0293ce50647bc10483b49dd39a, type: 2}
-  - {fileID: 11400000, guid: 4c16899fcec241b4491dc09ab0e7a494, type: 2}
-  - {fileID: 11400000, guid: faecd11ed775db340b08a4d8ad8cc975, type: 2}
-  - {fileID: 11400000, guid: 47a99f9bbd907844ca6d3fc79027b5fb, type: 2}
-  - {fileID: 11400000, guid: c5e4713a96eb1f0418d384a468751cfb, type: 2}
-  - {fileID: 11400000, guid: 9f46e81c8dc5c4e4c84099d58372d6e3, type: 2}
-  - {fileID: 11400000, guid: 903db3e4c1a989a499747bbf568777bf, type: 2}
-  - {fileID: 11400000, guid: 99342d749241b384aaad2efd5b746733, type: 2}
-  - {fileID: 11400000, guid: a032fdbd04c926d4b8093538ffe5d2ae, type: 2}
-  - {fileID: 11400000, guid: d1a7f49b662d15541a00e8a3ed6323ed, type: 2}
-  - {fileID: 11400000, guid: b4c5914e077ee014ba79105e942c85ad, type: 2}
-  - {fileID: 11400000, guid: ca40c23eec4489a4d888929c201a1284, type: 2}
-  - {fileID: 11400000, guid: b4ba13ddb9d60ee49b963429db3db429, type: 2}
-  - {fileID: 11400000, guid: b0b2dc250cee4054ea6c35db3d3ce929, type: 2}
   sfxSource: {fileID: 629913882}
   bgMusicSource: {fileID: 973737936}
 --- !u!4 &2053379264

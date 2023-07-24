@@ -11,7 +11,6 @@ namespace StatePattern.Enemy
         public EnemyController Controller { get; private set; }
         [SerializeField] public NavMeshAgent Agent;
         private SphereCollider rangeTriggerCollider;
-        private PlayerController target;
         [SerializeField] private SpriteRenderer detectableRange;
         [SerializeField] private ParticleSystem muzzleFlash;
         [SerializeField] private ParticleSystem bloodSplatter;
@@ -37,8 +36,6 @@ namespace StatePattern.Enemy
         }
 
         private void SetRangeImageRadius(float radiusToSet) => detectableRange.transform.localScale = new Vector3(radiusToSet, radiusToSet, 1);
-
-        public void SetTarget(PlayerController targetToSet) => target = targetToSet;
 
         public void PlayShootingEffect() => muzzleFlash.Play();
 
