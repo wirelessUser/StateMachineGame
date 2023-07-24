@@ -14595,7 +14595,7 @@ GameObject:
   - component: {fileID: 8285538388518601480}
   - component: {fileID: 5443418315836752591}
   m_Layer: 0
-  m_Name: DashMan Prefab
+  m_Name: PatrolMan Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
