@@ -25,11 +25,8 @@ namespace StatePattern.Enemy.Bullet
             bulletView.SetController(this);
         }
 
-        public void UpdateBullet()
-        {
-            bulletView.transform.Translate(Vector3.forward * bulletScriptableObject.Speed * Time.deltaTime, Space.Self);
-        }
+        public void UpdateBullet() => bulletView.transform.Translate(Vector3.forward * bulletScriptableObject.Speed * Time.deltaTime, Space.Self);
 
-        public void HitPlayer(PlayerView playerHit) => playerHit.TakeDamage(bulletScriptableObject.Damage);
+        public void PlayerHit(PlayerView playerHit) => playerHit.TakeDamage(bulletScriptableObject.Damage);
     }
 }

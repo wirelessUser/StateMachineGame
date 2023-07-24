@@ -15,14 +15,16 @@ namespace StatePattern.Enemy.Bullet
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.GetComponent<PlayerView>() != null)
+            if(HasHitPlayer(other))
             {
-                if (!other.isTrigger)
-                    controller.HitPlayer(other.GetComponent<PlayerView>());
-                else
+                if (other.isTrigger)
                     return;
+                else 
+                    controller.PlayerHit(other.GetComponent<PlayerView>());
             }
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
+
+        private bool HasHitPlayer(Collider other) => other.GetComponent<PlayerView>() != null;
     }
 }
