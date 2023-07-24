@@ -12,10 +12,16 @@ namespace StatePattern.Enemy
         public HitManController(EnemyScriptableObject enemyScriptableObject) : base(enemyScriptableObject)
         {
             enemyView.SetController(this);
+            CreateStateMachine();
             stateMachine.ChangeState(HitManStates.Idle);
         }
 
-        public override void CreateStateMachine() => stateMachine = new HitManStateMachine(this);
+        public void CreateStateMachine()
+        {
+            if (currentState == EnemyState.DEACTIVE)
+                return;
+            stateMachine = new HitManStateMachine(this);
+        }
 
         public override void UpdateEnemy() => stateMachine.Update();
 

@@ -11,12 +11,18 @@ namespace StatePattern.Enemy
         public OnePunchManController(EnemyScriptableObject enemyScriptableObject) : base(enemyScriptableObject)
         {
             enemyView.SetController(this);
+            CreateStateMachine();
             stateMachine.ChangeState(OnePunchManStates.Idle);
         }
 
-        public override void CreateStateMachine() => stateMachine = new OnePunchManStateMachine(this);
+        public void CreateStateMachine() => stateMachine = new OnePunchManStateMachine(this);
 
-        public override void UpdateEnemy() => stateMachine.Update();
+        public override void UpdateEnemy()
+        {
+            if (currentState == EnemyState.DEACTIVE)
+                return;
+            stateMachine.Update();
+        }
 
         public override void PlayerEnteredRange()
         {

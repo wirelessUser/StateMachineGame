@@ -12,13 +12,18 @@ namespace StatePattern.Enemy
         public DashManController(EnemyScriptableObject enemyScriptableObject) : base(enemyScriptableObject)
         {
             enemyView.SetController(this);
+            CreateStateMachine();
             stateMachine.ChangeState(DashManStates.Idle);
         }
 
-        public override void CreateStateMachine() => stateMachine = new DashManStateMachine(this);
+        public void CreateStateMachine() => stateMachine = new DashManStateMachine(this);
 
-        public override void UpdateEnemy() => stateMachine.Update();
-
+        public override void UpdateEnemy()
+        {
+            if (currentState == EnemyState.DEACTIVE)
+                return;
+            stateMachine.Update();
+        }
         public override void PlayerEnteredRange()
         {
             base.PlayerEnteredRange();

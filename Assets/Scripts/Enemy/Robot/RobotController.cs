@@ -11,14 +11,20 @@ namespace StatePattern.Enemy
         {
             SetCloneCount(2);
             enemyView.SetController(this);
+            CreateStateMachine();
             stateMachine.ChangeState(RobotStates.Idle);
         }
 
         public void SetCloneCount(int cloneCountToSet) => CloneCount = cloneCountToSet;
 
-        public override void CreateStateMachine() => stateMachine = new RobotStateMachine(this);
+        public void CreateStateMachine() => stateMachine = new RobotStateMachine(this);
 
-        public override void UpdateEnemy() => stateMachine.Update();
+        public override void UpdateEnemy()
+        {
+            if (currentState == EnemyState.DEACTIVE)
+                return;
+            stateMachine.Update();
+        }
 
         public override void PlayerEnteredRange()
         {

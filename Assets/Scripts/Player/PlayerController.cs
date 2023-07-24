@@ -100,6 +100,7 @@ namespace StatePattern.Player
             {
                 currentHealth = 0;
                 PlayerDied();
+                GameService.Instance.EnemyService.PlayerDied();
             }
             // TODO:    Update UI Health
         }

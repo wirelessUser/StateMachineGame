@@ -12,17 +12,18 @@ namespace StatePattern.Enemy
         protected EnemyView enemyView;
 
         protected int currentHealth;
+        protected EnemyState currentState;
         public NavMeshAgent Agent => enemyView.Agent;
         public EnemyScriptableObject Data => enemyScriptableObject;
         public Quaternion Rotation => enemyView.transform.rotation;
         public Vector3 Position => enemyView.transform.position;
+
 
         public EnemyController(EnemyScriptableObject enemyScriptableObject)
         {
             this.enemyScriptableObject = enemyScriptableObject;
             InitializeView();
             InitializeVariables();
-            CreateStateMachine();
         }
 
         private void InitializeView()
@@ -34,6 +35,7 @@ namespace StatePattern.Enemy
 
         private void InitializeVariables()
         {
+            SetState(EnemyState.ACTIVE);
             currentHealth = enemyScriptableObject.MaximumHealth;
             enemyView.SetTarget(GameService.Instance.PlayerService.GetPlayer());
         }
@@ -48,9 +50,6 @@ namespace StatePattern.Enemy
         {
             GameService.Instance.EnemyService.EnemyDied(this);
             enemyView.Destroy();
-            /*  TODO : 
-             *  Play Particle Effects if any.
-             * */
         }
 
         public void SetRotaion(Vector3 eulerAngles) => enemyView.transform.rotation = Quaternion.Euler(eulerAngles);
@@ -64,13 +63,18 @@ namespace StatePattern.Enemy
             BulletController bullet = new BulletController(enemyView.transform, enemyScriptableObject.BulletData);
         }
 
+        public void SetState(EnemyState stateToSet) => currentState = stateToSet;
+
         public virtual void PlayerEnteredRange() => GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_ALERT);
 
         public virtual void PlayerExitedRange() { }
 
-        public virtual void CreateStateMachine() { }
-
         public virtual void UpdateEnemy() { }
+    }
 
+    public enum EnemyState
+    {
+        ACTIVE,
+        DEACTIVE
     }
 }

@@ -71,6 +71,14 @@ namespace StatePattern.Enemy
             }
         }
 
+        public void PlayerDied()
+        {
+            foreach(EnemyController enemy in activeEnemies)
+            {
+                enemy.SetState(EnemyState.DEACTIVE);
+            }
+        }
+
         private bool DidPlayerWin() => activeEnemies.Count == 0;
     }
 }
