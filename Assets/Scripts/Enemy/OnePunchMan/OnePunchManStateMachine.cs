@@ -5,7 +5,6 @@ namespace StatePattern.Enemy
 {
     public class OnePunchManStateMachine : GenericStateMachine<OnePunchManController>
     {
-
         public OnePunchManStateMachine(OnePunchManController Owner) : base(Owner)
         {
             this.Owner = Owner;
