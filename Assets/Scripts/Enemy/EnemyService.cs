@@ -54,6 +54,9 @@ namespace StatePattern.Enemy
                 case EnemyType.OnePunchMan:
                     enemy = new OnePunchManController(enemyScriptableObject);
                     break;
+                case EnemyType.PatrolMan:
+                    enemy = new PatrolManController(enemyScriptableObject);
+                    break;
                 default:
                     enemy = new EnemyController(enemyScriptableObject);
                     break;
