@@ -1,5 +1,4 @@
 ﻿using StatePattern.Enemy;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,6 +39,7 @@ namespace StatePattern.StateMachine
         SHOOTING,
         PATROLLING,
         CHASING,
-        TELEPORTING
+        TELEPORTING,
+        CLONING
     }
 }
