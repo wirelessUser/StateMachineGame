@@ -15,7 +15,7 @@ namespace StatePattern.Utilities
             }
             else
             {
-                Destroy(gameObject);
+                Destroy(this);
             }
         }
     }

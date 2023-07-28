@@ -1,7 +1,6 @@
 ﻿using StatePattern.Enemy.Bullet;
 using StatePattern.Main;
 using StatePattern.Player;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 

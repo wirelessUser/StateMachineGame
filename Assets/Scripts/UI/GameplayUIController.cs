@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StatePattern.UI
 {
-    public class GameplayUIController
+    public class GameplayUIController : IUIController
     {
         private GameplayUIView gameplayView;
         private const string ENEMY_COUNTER_PREFIX = "Enemies Left:";

@@ -29,7 +29,9 @@ namespace StatePattern.UI
         }
 
         private void SubscribeToEvents() => GameService.Instance.EventService.OnLevelSelected.AddListener(ShowGameplayUI);
-        
+
+        private void UnsubscribeToEvents() => GameService.Instance.EventService.OnLevelSelected.RemoveListener(ShowGameplayUI);
+
         public void ShowLevelSelectionUI(int levelCount) => levelSelectionController.Show(levelCount);
 
         private void ShowGameplayUI(int levelId) => gameplayController.Show();
@@ -49,5 +51,7 @@ namespace StatePattern.UI
         public void UpdatePlayerHealth(float healthRatio) => gameplayController.SetPlayerHealthUI(healthRatio);
 
         public void UpdateEnemyCount(int activeEnemies, int totalEnemies) => gameplayController.SetEnemyCount(activeEnemies, totalEnemies);
+
+        private void OnDestroy() => UnsubscribeToEvents();
     }
 }
