@@ -2,9 +2,12 @@
 
 namespace StatePattern.UI
 {
-    public class LevelSelectionUIView : MonoBehaviour
+    public class LevelSelectionUIView : MonoBehaviour, IUIView
     {
+        private LevelSelectionUIController controller;
         [SerializeField] private Transform levelButtonContainer;
+
+        public void SetController(IUIController controllerToSet) => controller = controllerToSet as LevelSelectionUIController;
 
         public void DisableView() => gameObject.SetActive(false);
 
