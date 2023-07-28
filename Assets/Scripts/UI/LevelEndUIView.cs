@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace StatePattern.UI
 {
-    public class LevelEndUIView : MonoBehaviour
+    public class LevelEndUIView : MonoBehaviour, IUIView
     {
         private LevelEndUIController controller;
         [SerializeField] private TextMeshProUGUI resultText;
@@ -20,7 +19,7 @@ namespace StatePattern.UI
             quitButton.onClick.AddListener(controller.OnQuitButtonClicked);
         }
 
-        public void SetController(LevelEndUIController controllerToSet) => controller = controllerToSet;
+        public void SetController(IUIController controllerToSet) => controller = controllerToSet as LevelEndUIController;
 
         public void DisableView() => gameObject.SetActive(false);
 

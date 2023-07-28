@@ -1,6 +1,7 @@
 ﻿using StatePattern.Enemy;
 using StatePattern.Main;
 using StatePattern.Sound;
+using StatePattern.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,11 @@ namespace StatePattern.Player
         private PlayerView playerView;
 
         private int currentHealth;
-        public Vector3 Position => playerView.transform.position;
         private List<EnemyController> enemiesInRange;
+        public Vector3 Position => playerView.transform.position;
+        public UIService UIService => GameService.Instance.UIService;
+        public SoundService SoundService => GameService.Instance.SoundService;
+        public EnemyService EnemyService => GameService.Instance.EnemyService;
 
         public PlayerController(PlayerScriptableObject playerScriptableObject)
         {
@@ -35,18 +39,18 @@ namespace StatePattern.Player
         {
             currentHealth = playerScriptableObject.MaximumHealth;
             enemiesInRange = new List<EnemyController>();
-            GameService.Instance.UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
+            UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
         }
 
         public void UpdatePlayer()
         {
             if(Input.GetKeyDown(KeyCode.Space))
-                HandleAttack();
+                UpdateAttack();
         }
 
-        public void FixedUpdatePlayer() => HandleMovement();
+        public void FixedUpdatePlayer() => UpdateMovement();
 
-        private void HandleMovement()
+        private void UpdateMovement()
         {
             float horizontalInput = Input.GetAxisRaw("Horizontal");
             float verticalInput = Input.GetAxisRaw("Vertical");
@@ -80,41 +84,41 @@ namespace StatePattern.Player
 
         private Vector3 GetPositionToMoveAt(Vector3 moveVector) => playerView.Rigidbody.position + moveVector * playerScriptableObject.MovementSpeed * Time.deltaTime;
 
-        private void HandleAttack()
+        private void UpdateAttack()
         {
             playerView.PlayAttackVFX();
             if(enemiesInRange.Count > 0)
             {
+                SoundService.PlaySoundEffects(SoundType.PLAYER_ATTACK);
                 foreach(EnemyController enemy in enemiesInRange)
                 {
                     enemy.Die();
                 }
                 enemiesInRange.Clear();
-                GameService.Instance.SoundService.PlaySoundEffects(SoundType.PLAYER_ATTACK);
             }
             else
             {
-                GameService.Instance.SoundService.PlaySoundEffects(SoundType.PLAYER_SLASH);
+                SoundService.PlaySoundEffects(SoundType.PLAYER_SLASH);
             }
         }
 
         public void TakeDamage(int damageToInflict)
         {
             currentHealth -= damageToInflict;
-            GameService.Instance.SoundService.PlaySoundEffects(SoundType.PLAYER_HIT);
+            SoundService.PlaySoundEffects(SoundType.PLAYER_HIT);
             if(currentHealth <= 0)
             {
                 currentHealth = 0;
                 PlayerDied();
-                GameService.Instance.EnemyService.PlayerDied();
+                EnemyService.PlayerDied();
             }
-            GameService.Instance.UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
+            UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
         }
 
         private void PlayerDied()
         {
-            GameService.Instance.SoundService.PlaySoundEffects(SoundType.GAME_LOST);
-            GameService.Instance.UIService.GameLost();
+            SoundService.PlaySoundEffects(SoundType.GAME_LOST);
+            UIService.GameLost();
         }
 
         public void AddEnemy(EnemyController enemy) => enemiesInRange.Add(enemy);
