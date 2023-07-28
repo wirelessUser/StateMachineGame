@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace StatePattern.UI
 {
-    public class GameplayUIView : MonoBehaviour
+    public class GameplayUIView : MonoBehaviour, IUIView
     {
         private GameplayUIController controller;
         [SerializeField] private TextMeshProUGUI enemyCounterText;
         [SerializeField] private Image playerHealth;
 
-        public void SetController(GameplayUIController controllerToSet) => controller = controllerToSet;
+        public void SetController(IUIController controllerToSet) => controller = controllerToSet as GameplayUIController;
 
         public void DisableView() => gameObject.SetActive(false);
 

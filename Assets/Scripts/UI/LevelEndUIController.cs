@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace StatePattern.UI
 {
-    public class LevelEndUIController
+    public class LevelEndUIController : IUIController
     {
         private LevelEndUIView levelEndView;
         private const string WinResult = "Game Won";

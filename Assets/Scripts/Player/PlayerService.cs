@@ -16,7 +16,13 @@ namespace StatePattern.Player
 
         private void SubscribeToEvents() => GameService.Instance.EventService.OnLevelSelected.AddListener(SpawnPlayer);
 
-        public void SpawnPlayer(int levelId) => playerController = new PlayerController(playerScriptableObject);
+        private void UnsubscribeToEvents() => GameService.Instance.EventService.OnLevelSelected.RemoveListener(SpawnPlayer);
+
+        public void SpawnPlayer(int levelId)
+        {
+            playerController = new PlayerController(playerScriptableObject);
+            UnsubscribeToEvents();
+        }
 
         public PlayerController GetPlayer() => playerController;
     }

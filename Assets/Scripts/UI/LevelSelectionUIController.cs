@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StatePattern.UI
 {
-    public class LevelSelectionUIController
+    public class LevelSelectionUIController : IUIController
     {
         private LevelSelectionUIView levelSelectionView;
         private LevelButtonView levelButtonPrefab;
@@ -14,6 +14,7 @@ namespace StatePattern.UI
         {
             this.levelSelectionView = levelSelectionView;
             this.levelButtonPrefab = levelButtonPrefab;
+            levelSelectionView.SetController(this);
             InitializeController();
         }
 
