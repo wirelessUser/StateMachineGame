@@ -15,6 +15,7 @@ namespace StatePattern.Enemy
         {
             SetCloneCount(enemyScriptableObject.CloneCount);
             enemyView.SetController(this);
+            ChangeColor(EnemyColorType.Default);
             CreateStateMachine();
             stateMachine.ChangeState(States.IDLE);
         }
@@ -47,5 +48,13 @@ namespace StatePattern.Enemy
         }
 
         public void Teleport() => stateMachine.ChangeState(States.TELEPORTING);
+
+        public void ChangeColor(EnemyColorType colorType) => enemyView.ChangeColor(colorType);
+    }
+
+    public enum EnemyColorType
+    {
+        Default,
+        Clone
     }
 }

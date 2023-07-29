@@ -1,6 +1,7 @@
 ﻿using StatePattern.Main;
 using StatePattern.Player;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,9 +12,11 @@ namespace StatePattern.Enemy
         public EnemyController Controller { get; private set; }
         [SerializeField] public NavMeshAgent Agent;
         private SphereCollider rangeTriggerCollider;
+        [SerializeField] private SpriteRenderer enemyGraphic;
         [SerializeField] private SpriteRenderer detectableRange;
         [SerializeField] private ParticleSystem muzzleFlash;
         [SerializeField] private ParticleSystem bloodSplatter;
+        [SerializeField] private List<EnemyColor> enemyColors;
 
         private void Start()
         {
@@ -62,5 +65,13 @@ namespace StatePattern.Enemy
             Destroy(gameObject);
         }
 
+        public void ChangeColor(EnemyColorType colorType) => enemyGraphic.color = enemyColors.Find(item => item.Type == colorType).Color;
+    }
+
+    [System.Serializable]
+    public struct EnemyColor
+    {
+        public EnemyColorType Type;
+        public Color Color;
     }
 }

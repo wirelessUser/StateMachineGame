@@ -227,6 +227,7 @@ MonoBehaviour:
   detectableRange: {fileID: 1256644641259568013}
   muzzleFlash: {fileID: 4705609649000488680}
   bloodSplatter: {fileID: 2898500119689141220}
+  EnemyColors: []
 --- !u!135 &465711594477489646
 SphereCollider:
   m_ObjectHideFlags: 0
