@@ -1,6 +1,5 @@
 ﻿using StatePattern.Enemy;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace StatePattern.StateMachine
 {
@@ -30,16 +29,5 @@ namespace StatePattern.StateMachine
                 state.Owner = Owner;
             }
         }
-    }
-
-    public enum States
-    {
-        IDLE,
-        ROTATING,
-        SHOOTING,
-        PATROLLING,
-        CHASING,
-        TELEPORTING,
-        CLONING
     }
 }
