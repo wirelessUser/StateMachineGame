@@ -28,7 +28,9 @@ namespace StatePattern.Player
         {
             if(other.GetComponent<EnemyView>() != null && !other.isTrigger)
             {
-                Controller.AddEnemy(other.GetComponent<EnemyView>().Controller);
+                var enemyController = other.GetComponent<EnemyView>().Controller;
+                Controller.AddEnemy(enemyController);
+                enemyController.ToggleEnemyColor(true);
             }
         }
 
@@ -36,7 +38,9 @@ namespace StatePattern.Player
         {
             if (other.GetComponent<EnemyView>() != null && !other.isTrigger)
             {
-                Controller.RemoveEnemy(other.GetComponent<EnemyView>().Controller);
+                var enemyController = other.GetComponent<EnemyView>().Controller;
+                Controller.RemoveEnemy(enemyController);
+                enemyController.ToggleEnemyColor(false);
             }
         }
     }

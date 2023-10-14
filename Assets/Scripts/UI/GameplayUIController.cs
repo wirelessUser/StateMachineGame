@@ -22,5 +22,7 @@ namespace StatePattern.UI
         public void SetEnemyCount(int activeEnemies, int totalEnemies) => gameplayView.UpdateEnemyCounterText($"{ENEMY_COUNTER_PREFIX} {activeEnemies} / {totalEnemies}");
 
         public void SetPlayerHealthUI(float healthRatio) => gameplayView.UpdatePlayerHealthUI(healthRatio);
+
+        public void ToggleKillOverlay(bool value) => gameplayView.ToggleKillOverlay(value);
     }
 }
