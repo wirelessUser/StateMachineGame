@@ -53,9 +53,14 @@ namespace StatePattern.Enemy
             enemyView.Destroy();
         }
 
+        public void ToggleKillOverlay(bool value) => GameService.Instance.UIService.ToggleKillOverlay(value);
+
         public void SetRotation(Vector3 eulerAngles) => enemyView.transform.rotation = Quaternion.Euler(eulerAngles);
 
         public void SetRotation(Quaternion desiredRotation) => enemyView.transform.rotation = desiredRotation;
+
+        public void ToggleEnemyColor(bool value)=>  enemyView.ToggleColor(value);
+        
 
         public void Shoot()
         {

@@ -13,7 +13,8 @@ namespace StatePattern.Enemy
         private SphereCollider rangeTriggerCollider;
         [SerializeField] private SpriteRenderer detectableRange;
         [SerializeField] private ParticleSystem muzzleFlash;
-        [SerializeField] private ParticleSystem bloodSplatter;
+        [SerializeField] private GameObject bloodStain;
+        [SerializeField] private SpriteRenderer enemyGraphic;
 
         private void Start()
         {
@@ -39,6 +40,18 @@ namespace StatePattern.Enemy
 
         public void PlayShootingEffect() => muzzleFlash.Play();
 
+        public void ToggleColor(bool value)
+        {
+            if (value)
+            {
+                enemyGraphic.color = Color.red;
+            }
+            else
+            {
+                enemyGraphic.color = Color.white;
+            }
+        }
+
         private void Update() => Controller?.UpdateEnemy();
 
         private void OnTriggerEnter(Collider other)
@@ -57,8 +70,13 @@ namespace StatePattern.Enemy
 
         private IEnumerator EnemyDeathSequence()
         {
-            bloodSplatter.Play();
+            Controller.ToggleKillOverlay(true);   
             yield return new WaitForSeconds(0.1f);
+
+            var blood = Instantiate(bloodStain);
+            blood.transform.position = transform.position;
+            Controller.ToggleKillOverlay(false);
+
             Destroy(gameObject);
         }
 
