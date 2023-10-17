@@ -87,10 +87,10 @@ namespace StatePattern.Player
         private void UpdateAttack()
         {
             playerView.PlayAttackVFX();
-            if(enemiesInRange.Count > 0)
+            if (enemiesInRange.Count > 0)
             {
-                SoundService.PlaySoundEffects(SoundType.PLAYER_ATTACK);
-                foreach(EnemyController enemy in enemiesInRange)
+               SoundService.PlaySoundEffects(SoundType.PLAYER_ATTACK);
+                foreach (EnemyController enemy in enemiesInRange)
                 {
                     enemy.Die();
                 }

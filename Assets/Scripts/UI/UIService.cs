@@ -36,6 +36,8 @@ namespace StatePattern.UI
 
         private void ShowGameplayUI(int levelId) => gameplayController.Show();
 
+        public void ToggleKillOverlay(bool value) => gameplayController.ToggleKillOverlay(value);
+
         public void GameWon()
         {
             gameplayController.Hide();
