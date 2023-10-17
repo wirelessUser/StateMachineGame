@@ -49,12 +49,9 @@ namespace StatePattern.Enemy
 
         public void Teleport() => stateMachine.ChangeState(States.TELEPORTING);
 
+        public void SetDefaultColor(EnemyColorType colorType) => enemyView.SetDefaultColor(colorType);
+
         public void ChangeColor(EnemyColorType colorType) => enemyView.ChangeColor(colorType);
     }
 
-    public enum EnemyColorType
-    {
-        Default,
-        Clone
-    }
 }

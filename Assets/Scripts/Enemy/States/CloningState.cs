@@ -25,6 +25,7 @@ namespace StatePattern.Enemy
             RobotController clonedRobot = GameService.Instance.EnemyService.CreateEnemy(Owner.Data) as RobotController;
             clonedRobot.SetCloneCount((Owner as RobotController).CloneCountLeft - 1);
             clonedRobot.Teleport();
+            clonedRobot.SetDefaultColor(EnemyColorType.Clone);
             clonedRobot.ChangeColor(EnemyColorType.Clone);
             GameService.Instance.EnemyService.AddEnemy(clonedRobot);
         }

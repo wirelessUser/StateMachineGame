@@ -2,6 +2,7 @@
 using StatePattern.Player;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,7 +18,6 @@ namespace StatePattern.Enemy
         [SerializeField] private ParticleSystem muzzleFlash;
         [SerializeField] private List<EnemyColor> enemyColors;
         [SerializeField] private GameObject bloodStain;
-        [SerializeField] private SpriteRenderer enemyGraphic;
 
         private void Start()
         {
@@ -42,14 +42,6 @@ namespace StatePattern.Enemy
         private void SetRangeImageRadius(float radiusToSet) => detectableRange.transform.localScale = new Vector3(radiusToSet, radiusToSet, 1);
 
         public void PlayShootingEffect() => muzzleFlash.Play();
-
-        public void ToggleColor(bool value)
-        {
-            if (value)
-                enemyGraphic.color = Color.red;
-            else
-                enemyGraphic.color = Color.white;
-        }
 
         private void Update() => Controller?.UpdateEnemy();
 
@@ -80,6 +72,16 @@ namespace StatePattern.Enemy
         }
 
         public void ChangeColor(EnemyColorType colorType) => enemyGraphic.color = enemyColors.Find(item => item.Type == colorType).Color;
+
+        public void SetDefaultColor(EnemyColorType colorType)
+        {
+            EnemyColor coloToSetAsDefault = new EnemyColor();
+            coloToSetAsDefault.Type = EnemyColorType.Default;
+            coloToSetAsDefault.Color = enemyColors.Find(item => item.Type == colorType).Color;
+            
+            enemyColors.Remove(enemyColors.Find(item => item.Type == EnemyColorType.Default));
+            enemyColors.Add(coloToSetAsDefault);
+        }
     }
 
     [System.Serializable]
@@ -87,5 +89,12 @@ namespace StatePattern.Enemy
     {
         public EnemyColorType Type;
         public Color Color;
+    }
+
+    public enum EnemyColorType
+    {
+        Default,
+        Vulnerable,
+        Clone
     }
 }
