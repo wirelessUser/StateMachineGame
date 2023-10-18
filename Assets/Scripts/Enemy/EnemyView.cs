@@ -61,7 +61,9 @@ namespace StatePattern.Enemy
 
         private IEnumerator EnemyDeathSequence()
         {
-            Controller.ToggleKillOverlay(true);   
+            Controller.ToggleKillOverlay(true);
+            Controller.ShakeCamera();
+
             yield return new WaitForSeconds(0.1f);
 
             var blood = Instantiate(bloodStain);
