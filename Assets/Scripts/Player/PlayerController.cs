@@ -4,6 +4,7 @@ using StatePattern.Sound;
 using StatePattern.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace StatePattern.Player
@@ -115,9 +116,10 @@ namespace StatePattern.Player
             UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
         }
 
-        private void PlayerDied()
+        private async void PlayerDied()
         {
             SoundService.PlaySoundEffects(SoundType.GAME_LOST);
+            await Task.Delay(playerScriptableObject.DelayAfterDeath * 1000); // converting to milliseconds
             UIService.GameLost();
         }
 

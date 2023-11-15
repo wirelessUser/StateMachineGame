@@ -3,6 +3,7 @@ using StatePattern.Main;
 using StatePattern.Sound;
 using StatePattern.UI;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace StatePattern.Enemy
@@ -65,7 +66,7 @@ namespace StatePattern.Enemy
             return enemy;
         }
 
-        public void EnemyDied(EnemyController deadEnemy)
+        public async void EnemyDied(EnemyController deadEnemy)
         {
             activeEnemies.Remove(deadEnemy);
             SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_DEATH);
@@ -73,6 +74,7 @@ namespace StatePattern.Enemy
             if (PlayerWon()) 
             {
                 SoundService.PlaySoundEffects(Sound.SoundType.GAME_WON);
+                await Task.Delay(deadEnemy.Data.DelayAfterGameEnd * 1000); //converting seconds to milliseconds 
                 UIService.GameWon();
             }
         }
