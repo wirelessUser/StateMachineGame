@@ -4,7 +4,6 @@ using StatePattern.Sound;
 using StatePattern.UI;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace StatePattern.Enemy
 {
