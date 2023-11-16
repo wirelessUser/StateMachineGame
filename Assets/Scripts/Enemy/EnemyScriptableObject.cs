@@ -1,5 +1,4 @@
 using StatePattern.Enemy.Bullet;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,5 +27,6 @@ namespace StatePattern.Enemy
         public float PlayerStoppingDistance;
 
         public int CloneCount;
+        public int DelayAfterGameEnd;
     }
 }
