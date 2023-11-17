@@ -34,11 +34,18 @@ namespace StatePattern.Enemy
 
         public override void PlayerEnteredRange(PlayerController targetToSet)
         {
-            base.PlayerEnteredRange(targetToSet);
-            stateMachine.ChangeState(States.CHASING);
+            if(!enemyAlerted){
+                base.PlayerEnteredRange(targetToSet);
+                stateMachine.ChangeState(States.CHASING);
+            }
         }
 
-        public override void PlayerExitedRange() => stateMachine.ChangeState(States.IDLE);
+        public override void PlayerExitedRange(){
+            if(enemyAlerted){
+                base.PlayerExitedRange();
+                stateMachine.ChangeState(States.IDLE);
+            }
+        }
 
         public override void Die()
         {

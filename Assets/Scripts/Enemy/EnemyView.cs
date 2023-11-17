@@ -1,5 +1,4 @@
-﻿using StatePattern.Main;
-using StatePattern.Player;
+﻿using StatePattern.Player;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +26,7 @@ namespace StatePattern.Enemy
 
         public void SetController(EnemyController controllerToSet) => Controller = controllerToSet;
 
-        public void SetTriggerRadius(float radiusToSet)
+        public void SetDetectableZone(float radiusToSet, float angleToSet)
         {
             SetRangeColliderRadius(radiusToSet);
             SetRangeImageRadius(radiusToSet);
@@ -43,19 +42,25 @@ namespace StatePattern.Enemy
 
         public void PlayShootingEffect() => muzzleFlash.Play();
 
-        private void Update() => Controller?.UpdateEnemy();
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.GetComponent<PlayerView>() != null && !other.isTrigger)
-                Controller.PlayerEnteredRange(other.GetComponent<PlayerView>().Controller);
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.GetComponent<PlayerView>() != null && !other.isTrigger)
+        private void Update(){
+            var otherColliders = Physics.OverlapSphere(transform.position, Controller.Data.RangeRadius).ToList();
+            var playerCollider = otherColliders?.Find(x => x.GetComponent<PlayerView>()!=null && !x.isTrigger);
+            if(playerCollider != null){
+                var playerVector = playerCollider.transform.position - transform.position;
+                var isInsideCone = Vector3.Angle(transform.forward, playerVector.normalized) <= Controller.Data.RangeAngle;
+                if(isInsideCone){
+                    detectableRange.color = Color.red;
+                    Controller.PlayerEnteredRange(playerCollider.GetComponent<PlayerView>().Controller);
+                }else{
+                    detectableRange.color = Color.white;
+                    Controller.PlayerExitedRange();    
+                }
+            }else{
+                detectableRange.color = Color.white;
                 Controller.PlayerExitedRange();
-        }
+            }
+            Controller?.UpdateEnemy();
+        } 
 
         public void Destroy() => StartCoroutine(EnemyDeathSequence());
 

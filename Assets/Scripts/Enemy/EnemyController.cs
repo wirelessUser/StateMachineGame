@@ -12,6 +12,7 @@ namespace StatePattern.Enemy
         protected EnemyView enemyView;
 
         protected int currentHealth;
+        protected bool enemyAlerted = false;
         protected EnemyState currentState;
         public NavMeshAgent Agent => enemyView.Agent;
         public EnemyScriptableObject Data => enemyScriptableObject;
@@ -31,7 +32,7 @@ namespace StatePattern.Enemy
             enemyView = Object.Instantiate(enemyScriptableObject.EnemyPrefab);
             enemyView.transform.position = enemyScriptableObject.SpawnPosition;
             enemyView.transform.rotation = Quaternion.Euler(enemyScriptableObject.SpawnRotation);
-            enemyView.SetTriggerRadius(enemyScriptableObject.RangeRadius);
+            enemyView.SetDetectableZone(enemyScriptableObject.RangeRadius, enemyScriptableObject.RangeAngle);
         }
 
         private void InitializeVariables()
@@ -72,9 +73,12 @@ namespace StatePattern.Enemy
 
         public void SetState(EnemyState stateToSet) => currentState = stateToSet;
 
-        public virtual void PlayerEnteredRange(PlayerController targetToSet) => GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_ALERT);
+        public virtual void PlayerEnteredRange(PlayerController targetToSet){
+            enemyAlerted = true;
+            GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_ALERT);
+        }
 
-        public virtual void PlayerExitedRange() { }
+        public virtual void PlayerExitedRange() => enemyAlerted = false;
 
         public virtual void UpdateEnemy() { }
     }

@@ -15,6 +15,7 @@ namespace StatePattern.Enemy
         public float MovementSpeed;
         public int MaximumHealth;
         public float RangeRadius;
+        public float RangeAngle;
 
         public float IdleTime;
         public float RotationSpeed;
