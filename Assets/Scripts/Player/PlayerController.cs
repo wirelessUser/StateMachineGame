@@ -14,6 +14,13 @@ namespace StatePattern.Player
         private PlayerView playerView;
 
         private int currentHealth;
+        private int currentCoins = 0;
+        public int CurrentCoins { get => currentCoins; 
+            private set{
+                currentCoins = value;
+                UIService.UpdateCoinsCount(currentCoins);
+            }
+        }
         private List<EnemyController> enemiesInRange;
         public Vector3 Position => playerView.transform.position;
         public UIService UIService => GameService.Instance.UIService;
@@ -37,6 +44,7 @@ namespace StatePattern.Player
 
         private void InitializeVariables()
         {
+            currentCoins = 0;
             currentHealth = playerScriptableObject.MaximumHealth;
             enemiesInRange = new List<EnemyController>();
             UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
@@ -130,5 +138,9 @@ namespace StatePattern.Player
         public void AddEnemy(EnemyController enemy) => enemiesInRange.Add(enemy);
             
         public void RemoveEnemy(EnemyController enemy) => enemiesInRange.Remove(enemy);
+
+        public void CollectCoin(int coinValue){
+            CurrentCoins += coinValue;
+        }
     }
 }

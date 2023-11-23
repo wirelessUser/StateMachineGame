@@ -20,6 +20,7 @@ namespace StatePattern.Enemy
         public Quaternion Rotation => enemyView.transform.rotation;
         public Vector3 Position => enemyView.transform.position;
         public int CurrentHealth => currentHealth;
+        public EnemyView EnemyView => enemyView;
 
 
         public EnemyController(EnemyScriptableObject enemyScriptableObject)

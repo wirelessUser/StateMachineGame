@@ -8,6 +8,7 @@ namespace StatePattern.UI
     {
         private GameplayUIController controller;
         [SerializeField] private TextMeshProUGUI enemyCounterText;
+        [SerializeField] private TextMeshProUGUI coinsCollectedText;
         [SerializeField] private Slider playerHealthSlider;
         [SerializeField] private GameObject EnemyKillOverlay;
 
@@ -20,6 +21,8 @@ namespace StatePattern.UI
         public void UpdateEnemyCounterText(string enemyCounter) => enemyCounterText.SetText(enemyCounter);
 
         public void UpdatePlayerHealthUI(float healthRatio) => playerHealthSlider.value = healthRatio;
+
+        public void UpdateCoinsCollectedUI(string coinsCollected) => coinsCollectedText.text = coinsCollected;
 
         public void ToggleKillOverlay(bool value) => EnemyKillOverlay.SetActive(value);
     }

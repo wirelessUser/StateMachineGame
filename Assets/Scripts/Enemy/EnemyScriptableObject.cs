@@ -1,3 +1,4 @@
+using StatePattern.Drop;
 using StatePattern.Enemy.Bullet;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,5 +36,6 @@ namespace StatePattern.Enemy
         public List<EnemyScriptableObject> BossWave;
         public int FireBreathDamage;
         public int QuadrupleAttackDamage;
+        public List<DropScriptableObject> dropData;
     }
 }

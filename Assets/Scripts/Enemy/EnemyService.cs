@@ -1,3 +1,4 @@
+using StatePattern.Drop;
 using StatePattern.Level;
 using StatePattern.Main;
 using StatePattern.Player;
@@ -71,6 +72,9 @@ namespace StatePattern.Enemy
             activeEnemies.Remove(deadEnemy);
             PlayerService.GetPlayer().RemoveEnemy(deadEnemy);
             SoundService.PlaySoundEffects(SoundType.ENEMY_DEATH);
+            foreach(var dropData in deadEnemy.Data.dropData){
+                _ = new DropController(deadEnemy.EnemyView.transform, dropData);
+            }
             UIService.UpdateEnemyCount(activeEnemies.Count, spawnedEnemies);
             if (PlayerWon()) 
             {

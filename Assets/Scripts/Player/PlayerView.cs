@@ -21,6 +21,8 @@ namespace StatePattern.Player
 
         public void TakeDamage(int damage) => Controller.TakeDamage(damage);
 
+        public void CollectCoin(int coinValue) => Controller?.CollectCoin(coinValue);
+
         private void PlayAttackVFX() => attackVFX.Play();
 
         private void PlayAttackAnimation() => animator.SetTrigger("attack");
