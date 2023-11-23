@@ -1,5 +1,6 @@
 using StatePattern.Level;
 using StatePattern.Main;
+using StatePattern.Player;
 using StatePattern.Sound;
 using StatePattern.UI;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace StatePattern.Enemy
         private SoundService SoundService => GameService.Instance.SoundService;
         private UIService UIService => GameService.Instance.UIService;
         private LevelService LevelService => GameService.Instance.LevelService;
+        private PlayerService PlayerService => GameService.Instance.PlayerService;
 
         private List<EnemyController> activeEnemies;
         private int spawnedEnemies;
@@ -50,27 +52,15 @@ namespace StatePattern.Enemy
 
         public EnemyController CreateEnemy(EnemyScriptableObject enemyScriptableObject)
         {
-            EnemyController enemy;
-
-            switch (enemyScriptableObject.Type)
+            EnemyController enemy = enemyScriptableObject.Type switch
             {
-                case EnemyType.OnePunchMan:
-                    enemy = new OnePunchManController(enemyScriptableObject);
-                    break;
-                case EnemyType.PatrolMan:
-                    enemy = new PatrolManController(enemyScriptableObject);
-                    break;
-                case EnemyType.Hitman:
-                    enemy = new HitmanController(enemyScriptableObject);
-                    break;
-                case EnemyType.Robot:
-                    enemy = new RobotController(enemyScriptableObject);
-                    break;
-                default:
-                    enemy = new EnemyController(enemyScriptableObject);
-                    break;
-            }
-
+                EnemyType.OnePunchMan => new OnePunchManController(enemyScriptableObject),
+                EnemyType.PatrolMan => new PatrolManController(enemyScriptableObject),
+                EnemyType.Hitman => new HitmanController(enemyScriptableObject),
+                EnemyType.Robot => new RobotController(enemyScriptableObject),
+                EnemyType.Boss => new BossController(enemyScriptableObject),
+                _ => new EnemyController(enemyScriptableObject),
+            };
             return enemy;
         }
 
@@ -79,7 +69,8 @@ namespace StatePattern.Enemy
         public async void EnemyDied(EnemyController deadEnemy)
         {
             activeEnemies.Remove(deadEnemy);
-            SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_DEATH);
+            PlayerService.GetPlayer().RemoveEnemy(deadEnemy);
+            SoundService.PlaySoundEffects(SoundType.ENEMY_DEATH);
             UIService.UpdateEnemyCount(activeEnemies.Count, spawnedEnemies);
             if (PlayerWon()) 
             {

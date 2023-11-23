@@ -44,7 +44,7 @@ namespace StatePattern.Enemy
             }
         }
 
-        public override void Die()
+        protected override void Die()
         {
             if (CloneCountLeft > 0)
                 stateMachine.ChangeState(States.CLONING);

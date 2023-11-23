@@ -16,6 +16,7 @@ namespace StatePattern.Enemy
         public int MaximumHealth;
         public float RangeRadius;
         public float RangeAngle;
+        public float RangeTeleporting;
 
         public float IdleTime;
         public float RotationSpeed;
@@ -25,9 +26,14 @@ namespace StatePattern.Enemy
         public float RateOfFire;
 
         public List<Vector3> PatrollingPoints;
-        public float PlayerStoppingDistance;
+        public float PlayerAttackingDistance;
 
         public int CloneCount;
         public int DelayAfterGameEnd;
+
+        public int SlowPlayerDownDuration; // only used for boss fight with roaring intimidation
+        public List<EnemyScriptableObject> BossWave;
+        public int FireBreathDamage;
+        public int QuadrupleAttackDamage;
     }
 }

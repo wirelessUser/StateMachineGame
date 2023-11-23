@@ -93,21 +93,21 @@ namespace StatePattern.Player
             playerView.Attack();
             if (enemiesInRange.Count > 0)
             {
-               SoundService.PlaySoundEffects(SoundType.PLAYER_ATTACK);
-                foreach (EnemyController enemy in enemiesInRange)
+                SoundService.PlaySoundEffects(SoundType.PLAYER_ATTACK);
+                for (int i = 0; i < enemiesInRange.Count; i++)
                 {
-                    enemy.Die();
+                    enemiesInRange[i].TakeDamage(playerScriptableObject.MeleeDamage);
                 }
-                enemiesInRange.Clear();
             }
             else
             {
                 SoundService.PlaySoundEffects(SoundType.PLAYER_SLASH);
-            }
+            }  
         }
 
         public void TakeDamage(int damageToInflict)
         {
+            Debug.Log($"Player taking damage: {damageToInflict}");
             currentHealth -= damageToInflict;
             SoundService.PlaySoundEffects(SoundType.PLAYER_HIT);
             if(currentHealth <= 0)

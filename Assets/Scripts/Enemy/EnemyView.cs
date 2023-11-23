@@ -17,11 +17,15 @@ namespace StatePattern.Enemy
         [SerializeField] private ParticleSystem muzzleFlash;
         [SerializeField] private List<EnemyColor> enemyColors;
         [SerializeField] private GameObject bloodStain;
+        [SerializeField] private Animator animator;
 
         private void Start()
         {
             rangeTriggerCollider = GetComponent<SphereCollider>();
             Controller?.InitializeAgent();
+            if(animator != null){
+                animator.SetBool("Idle", true);
+            }
         }
 
         public void SetController(EnemyController controllerToSet) => Controller = controllerToSet;
@@ -43,7 +47,7 @@ namespace StatePattern.Enemy
         public void PlayShootingEffect() => muzzleFlash.Play();
 
         private void Update(){
-            var otherColliders = Physics.OverlapSphere(transform.position, Controller.Data.RangeRadius).ToList();
+            var otherColliders = Physics.OverlapSphere(transform.position, Controller.Data.RangeRadius)?.ToList();
             var playerCollider = otherColliders?.Find(x => x.GetComponent<PlayerView>()!=null && !x.isTrigger);
             if(playerCollider != null){
                 var playerVector = playerCollider.transform.position - transform.position;
@@ -88,6 +92,18 @@ namespace StatePattern.Enemy
             
             enemyColors.Remove(enemyColors.Find(item => item.Type == EnemyColorType.Default));
             enemyColors.Add(coloToSetAsDefault);
+        }
+
+        public void FireBreathAttack(){
+            if(animator != null){
+                animator.SetTrigger("FireAttack");
+            }
+        }
+
+        public void QuadrupleAttack(){
+            if(animator != null){
+                animator.SetTrigger("QuadAttack");
+            }
         }
     }
 

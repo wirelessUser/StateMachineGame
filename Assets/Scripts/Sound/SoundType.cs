@@ -12,6 +12,7 @@ namespace StatePattern.Sound
         ENEMY_TELEPORT,
         ENEMY_CLONE,
         ENEMY_DEATH,
+        ENEMY_BOSS_ROAR,
         GAME_WON,
         GAME_LOST
     }
