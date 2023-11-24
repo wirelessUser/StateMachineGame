@@ -52,7 +52,7 @@ namespace StatePattern.Enemy
             if(playerCollider != null){
                 var playerVector = playerCollider.transform.position - transform.position;
                 var isInsideCone = Vector3.Angle(transform.forward, playerVector.normalized) <= Controller.Data.RangeAngle;
-                if(isInsideCone){
+                if(isInsideCone && !IsObstructed(playerCollider.transform)){
                     detectableRange.color = Color.red;
                     Controller.PlayerEnteredRange(playerCollider.GetComponent<PlayerView>().Controller);
                 }else{
@@ -64,7 +64,15 @@ namespace StatePattern.Enemy
                 Controller.PlayerExitedRange();
             }
             Controller?.UpdateEnemy();
-        } 
+        }
+
+        private bool IsObstructed(Transform target){
+            var direction = target.position - transform.position;
+            if (Physics.Raycast(transform.position, direction, out RaycastHit hit)){
+                return hit.transform != target;
+            }
+            return false;
+        }
 
         public void Destroy() => StartCoroutine(EnemyDeathSequence());
 

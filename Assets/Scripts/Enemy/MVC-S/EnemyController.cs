@@ -16,12 +16,15 @@ namespace StatePattern.Enemy
         protected int currentHealth;
         protected bool enemyAlerted = false;
         protected EnemyState currentState;
+
+        #region Getters
         public NavMeshAgent Agent => enemyView.Agent;
         public EnemyScriptableObject Data => enemyScriptableObject;
         public Quaternion Rotation => enemyView.transform.rotation;
         public Vector3 Position => enemyView.transform.position;
         public int CurrentHealth => currentHealth;
         public EnemyView EnemyView => enemyView;
+        #endregion
 
 
         public EnemyController(EnemyScriptableObject enemyScriptableObject)
