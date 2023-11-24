@@ -35,4 +35,6 @@ MonoBehaviour:
   BossWave: []
   FireBreathDamage: 0
   QuadrupleAttackDamage: 0
-  dropData: {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  dropData:
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 9b0f614cff900f14eab7a4315e248f1c, type: 2}

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 303e2171fc0434d498bf276033f0c951, type: 3}
-  m_Name: CoinScriptableObject
+  m_Name: HealthPackScriptableObject
   m_EditorClassIdentifier: 
-  dropType: 0
+  dropType: 3
   dropView: {fileID: 8369228740958685429, guid: 135eb4bda0e6c9844879a6df6a2b23d8, type: 3}
-  dropRadius: 1
-  coinValue: 10
+  dropRadius: 2
+  coinValue: 0
   freezeTime: 0
   teleportationPosition: {x: 0, y: 0, z: 0}
+  healthValue: 100

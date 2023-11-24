@@ -13,5 +13,6 @@ namespace StatePattern.Drop
         public int coinValue;
         public int freezeTime;
         public Vector3 teleportationPosition;
+        public int healthValue;
     }
 }

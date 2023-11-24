@@ -93,5 +93,13 @@ namespace StatePattern.Enemy
         }
 
         private bool PlayerWon() => activeEnemies.Count == 0;
+
+        public void FreezeEnemies(int freezeTime){
+            if(activeEnemies != null && activeEnemies.Count > 0){
+                foreach(var enemy in activeEnemies){
+                    enemy.FreezeEnemy(freezeTime);
+                }
+            }
+        }
     }
 }

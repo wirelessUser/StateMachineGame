@@ -41,3 +41,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4c16899fcec241b4491dc09ab0e7a494, type: 2}
   FireBreathDamage: 5
   QuadrupleAttackDamage: 10
+  dropData:
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}
+  - {fileID: 11400000, guid: 974a54275d9ba9f4bb5edadff384a8e6, type: 2}

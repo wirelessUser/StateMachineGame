@@ -1,4 +1,5 @@
-﻿using StatePattern.Enemy.Bullet;
+﻿using System.Threading.Tasks;
+using StatePattern.Enemy.Bullet;
 using StatePattern.Main;
 using StatePattern.Player;
 using StatePattern.Sound;
@@ -98,6 +99,14 @@ namespace StatePattern.Enemy
         public virtual void PlayerExitedRange() => enemyAlerted = false;
 
         public virtual void UpdateEnemy() { }
+
+        public virtual async void FreezeEnemy(int freezeTime){
+            Data.MovementSpeed /= 2;
+            Data.RotationSpeed /= 2;
+            await Task.Delay(freezeTime * 1000);
+            Data.MovementSpeed *= 2;
+            Data.RotationSpeed *= 2;
+        }
     }
 
     public enum EnemyState

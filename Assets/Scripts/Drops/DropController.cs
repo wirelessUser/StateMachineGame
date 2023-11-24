@@ -21,6 +21,7 @@ namespace StatePattern.Drop{
             var spawnPosition = parentTransform.position + randomPosition;
             dropView.transform.SetPositionAndRotation(spawnPosition, parentTransform.rotation);
             dropView.SetController(this);
+            dropView.SetDropSprite(dropScriptableObject.dropType);
         }
 
         public void PlayerHit(PlayerView playerHit){
@@ -30,8 +31,13 @@ namespace StatePattern.Drop{
                     playerHit.CollectCoin(dropScriptableObject.coinValue);
                     break;
                 case DropType.FreezeBomb:
+                    playerHit.FreezeEnemies(dropScriptableObject.freezeTime);
                     break;
                 case DropType.TeleportationPads:
+                    playerHit.CollectTeleportationPad(dropScriptableObject.teleportationPosition);
+                    break;
+                case DropType.HealthPacks:
+                    playerHit.CollectHealth(dropScriptableObject.healthValue);
                     break;
             }
         }
