@@ -21,8 +21,6 @@ namespace StatePattern.Player
 
         public void TakeDamage(int damage) => Controller.TakeDamage(damage);
 
-        public void CollectCoin(int coinValue) => Controller?.CollectCoin(coinValue);
-
         private void PlayAttackVFX() => attackVFX.Play();
 
         private void PlayAttackAnimation() => animator.SetTrigger("attack");
@@ -60,5 +58,12 @@ namespace StatePattern.Player
                 enemyController.ToggleEnemyColor(EnemyColorType.Default);
             }
         }
+
+        #region Drop Collection
+        public void CollectCoin(int coinValue) => Controller?.CollectCoin(coinValue);
+        public void CollectHealth(int healthValue) => Controller?.CollectHealth(healthValue);
+        public void CollectTeleportationPad(Vector3 teleportationPosition) => transform.position = teleportationPosition;
+        public void FreezeEnemies(int freezeTime) => Controller?.FreezeEnemies(freezeTime);
+        #endregion
     }
 }

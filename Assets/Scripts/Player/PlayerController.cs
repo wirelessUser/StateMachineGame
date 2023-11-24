@@ -14,6 +14,13 @@ namespace StatePattern.Player
         private PlayerView playerView;
 
         private int currentHealth;
+        public int CurrentHealth {
+            get => currentHealth;
+            private set {
+                currentHealth = Mathf.Clamp(value, 0, playerScriptableObject.MaximumHealth);
+                UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
+            }
+        }
         private int currentCoins = 0;
         public int CurrentCoins { get => currentCoins; 
             private set{
@@ -44,15 +51,14 @@ namespace StatePattern.Player
 
         private void InitializeVariables()
         {
-            currentCoins = 0;
-            currentHealth = playerScriptableObject.MaximumHealth;
+            CurrentCoins = 0;
+            CurrentHealth = playerScriptableObject.MaximumHealth;
             enemiesInRange = new List<EnemyController>();
-            UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
         }
 
         public void UpdatePlayer()
         {
-            if(Input.GetKeyDown(KeyCode.Space) && currentHealth > 0)
+            if(Input.GetKeyDown(KeyCode.Space) && CurrentHealth > 0)
                 UpdateAttack();
         }
 
@@ -60,7 +66,7 @@ namespace StatePattern.Player
 
         private void UpdateMovement()
         {
-            if(currentHealth > 0){
+            if(CurrentHealth > 0){
                 float horizontalInput = Input.GetAxisRaw("Horizontal");
                 float verticalInput = Input.GetAxisRaw("Vertical");
 
@@ -115,16 +121,14 @@ namespace StatePattern.Player
 
         public void TakeDamage(int damageToInflict)
         {
-            Debug.Log($"Player taking damage: {damageToInflict}");
-            currentHealth -= damageToInflict;
+            CurrentHealth -= damageToInflict;
             SoundService.PlaySoundEffects(SoundType.PLAYER_HIT);
-            if(currentHealth <= 0)
+            if(CurrentHealth <= 0)
             {
-                currentHealth = 0;
+                CurrentHealth = 0;
                 PlayerDied();
                 EnemyService.PlayerDied();
             }
-            UIService.UpdatePlayerHealth((float)currentHealth / playerScriptableObject.MaximumHealth);
         }
 
         private async void PlayerDied()
@@ -139,8 +143,12 @@ namespace StatePattern.Player
             
         public void RemoveEnemy(EnemyController enemy) => enemiesInRange.Remove(enemy);
 
-        public void CollectCoin(int coinValue){
-            CurrentCoins += coinValue;
-        }
+        #region DropCollection
+        public void CollectCoin(int coinValue) => CurrentCoins += coinValue;
+        public void CollectHealth(int healthValue) => CurrentHealth += healthValue;
+        public void FreezeEnemies(int freezeTime) => EnemyService.FreezeEnemies(freezeTime);
+
+        #endregion
+
     }
 }
