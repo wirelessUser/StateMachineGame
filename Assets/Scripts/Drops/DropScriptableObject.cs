@@ -12,6 +12,7 @@ namespace StatePattern.Drop
         //an editor script can be written for defining certain properties that can only be changed based on dropType
         public int coinValue;
         public int freezeTime;
+        public float freezeFactor;
         public Vector3 teleportationPosition;
         public int healthValue;
     }

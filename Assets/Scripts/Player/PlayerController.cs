@@ -146,7 +146,7 @@ namespace StatePattern.Player
         #region DropCollection
         public void CollectCoin(int coinValue) => CurrentCoins += coinValue;
         public void CollectHealth(int healthValue) => CurrentHealth += healthValue;
-        public void FreezeEnemies(int freezeTime) => EnemyService.FreezeEnemies(freezeTime);
+        public void FreezeEnemies(int freezeTime, float freezeFactor) => EnemyService.FreezeEnemies(freezeTime, freezeFactor);
 
         #endregion
 

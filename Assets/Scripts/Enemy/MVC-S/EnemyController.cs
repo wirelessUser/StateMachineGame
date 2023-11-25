@@ -57,7 +57,7 @@ namespace StatePattern.Enemy
 
         public virtual void TakeDamage(int damageToInflict){
             currentHealth -= damageToInflict;
-            GameService.Instance.SoundService.PlaySoundEffects(SoundType.ENEMY_DEATH); // another audio should be added for enemy taking damage
+            GameService.Instance.SoundService.PlaySoundEffects(SoundType.ENEMY_DEATH);
             if(currentHealth <= 0)
             {
                 currentHealth = 0;
@@ -103,12 +103,12 @@ namespace StatePattern.Enemy
 
         public virtual void UpdateEnemy() { }
 
-        public virtual async void FreezeEnemy(int freezeTime){
-            Data.MovementSpeed /= 2;
-            Data.RotationSpeed /= 2;
+        public virtual async void FreezeEnemy(int freezeTime, float freezeFactor){
+            Data.MovementSpeed /= freezeFactor;
+            Data.RotationSpeed /= freezeFactor;
             await Task.Delay(freezeTime * 1000);
-            Data.MovementSpeed *= 2;
-            Data.RotationSpeed *= 2;
+            Data.MovementSpeed *= freezeFactor;
+            Data.RotationSpeed *= freezeFactor;
         }
     }
 

@@ -94,10 +94,12 @@ namespace StatePattern.Enemy
 
         public void SetDefaultColor(EnemyColorType colorType)
         {
-            EnemyColor coloToSetAsDefault = new EnemyColor();
-            coloToSetAsDefault.Type = EnemyColorType.Default;
-            coloToSetAsDefault.Color = enemyColors.Find(item => item.Type == colorType).Color;
-            
+            EnemyColor coloToSetAsDefault = new()
+            {
+                Type = EnemyColorType.Default,
+                Color = enemyColors.Find(item => item.Type == colorType).Color
+            };
+
             enemyColors.Remove(enemyColors.Find(item => item.Type == EnemyColorType.Default));
             enemyColors.Add(coloToSetAsDefault);
         }

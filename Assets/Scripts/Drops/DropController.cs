@@ -31,7 +31,7 @@ namespace StatePattern.Drop{
                     playerHit.CollectCoin(dropScriptableObject.coinValue);
                     break;
                 case DropType.FreezeBomb:
-                    playerHit.FreezeEnemies(dropScriptableObject.freezeTime);
+                    playerHit.FreezeEnemies(dropScriptableObject.freezeTime, dropScriptableObject.freezeFactor);
                     break;
                 case DropType.TeleportationPads:
                     playerHit.CollectTeleportationPad(dropScriptableObject.teleportationPosition);
