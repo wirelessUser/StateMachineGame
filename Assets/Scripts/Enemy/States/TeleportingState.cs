@@ -17,6 +17,7 @@ namespace StatePattern.Enemy
             if(typeof(T) == typeof(BossController)){
                 var player = GameService.Instance.PlayerService.GetPlayer();
                 TeleportToRandomPosition(player.Position, Owner.Data.RangeTeleporting);
+                LookTowardsPlayer(player.Position);
             }else{
                 TeleportToRandomPosition(Owner.Position, Owner.Data.RangeTeleporting);
             }
@@ -29,6 +30,8 @@ namespace StatePattern.Enemy
 
         private void TeleportToRandomPosition(Vector3 position, float radius) => Owner.Agent.Warp(GetRandomNavMeshPoint(position, radius));
 
+        private void LookTowardsPlayer(Vector3 playerPosition) => Owner.EnemyView.transform.LookAt(playerPosition);
+        
         private Vector3 GetRandomNavMeshPoint(Vector3 position, float radius){
             Vector3 randomDirection = Random.insideUnitSphere * radius + position;
             if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, radius, NavMesh.AllAreas))
