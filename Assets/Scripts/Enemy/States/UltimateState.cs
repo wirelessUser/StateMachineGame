@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using StatePattern.StateMachine;
 
@@ -10,6 +11,8 @@ namespace StatePattern.Enemy
         public EnemyController Owner { get; set; }
         private GenericStateMachine<T> stateMachine;
         private List<Tuple<States, float>> ultimateStatesList;
+        private CancellationTokenSource cancellationTokenSource;
+
         public UltimateState(GenericStateMachine<T> stateMachine) => this.stateMachine = stateMachine;
 
         public void OnStateEnter(){ 
@@ -28,14 +31,28 @@ namespace StatePattern.Enemy
         }
 
         private async void ExecuteUltimateStates(){
+            cancellationTokenSource = new CancellationTokenSource();
+            var token = cancellationTokenSource.Token;
+
             foreach(var state in ultimateStatesList){
                 stateMachine.ChangeState(state.Item1);
-                await Task.Delay((int)(state.Item2 * 1000));
+                try {
+                    await Task.Delay((int)(state.Item2 * 1000), token);
+                } catch (TaskCanceledException) {
+                    return;
+                }
+                if (token.IsCancellationRequested)
+                    break;
             }
         }
 
+
         public void Update() { }
 
-        public void OnStateExit() { }
+        public void OnStateExit() {
+            cancellationTokenSource?.Cancel();
+            cancellationTokenSource?.Dispose();
+            cancellationTokenSource = null;
+        }
     }
 }

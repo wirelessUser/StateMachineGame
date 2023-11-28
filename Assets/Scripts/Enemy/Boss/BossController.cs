@@ -91,6 +91,11 @@ namespace StatePattern.Enemy{
             }
         }
 
+        protected override void Die(){
+            stateMachine.ChangeState(States.IDLE);
+            base.Die();
+        }
+
         public void Teleport() => stateMachine.ChangeState(States.TELEPORTING);
 
         public void ChangeColor(EnemyColorType colorType) => enemyView.ChangeColor(colorType);
