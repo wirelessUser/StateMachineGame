@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using StatePattern.Main;
 using StatePattern.StateMachine;
 
 namespace StatePattern.Enemy
@@ -16,6 +17,7 @@ namespace StatePattern.Enemy
         public UltimateState(GenericStateMachine<T> stateMachine) => this.stateMachine = stateMachine;
 
         public void OnStateEnter(){ 
+            GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_BOSS_ULTIMATE);
             ultimateStatesList = new();
             AddUltimateStates();
             ExecuteUltimateStates();

@@ -11,6 +11,7 @@ namespace StatePattern.Enemy
         public SummoningState(GenericStateMachine<T> stateMachine) => this.stateMachine = stateMachine;
 
         public void OnStateEnter(){ 
+            GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.ENEMY_BOSS_SUMMONING);
             foreach(var enemy in Owner.Data.BossWave){
                 var summonedEnemy = GameService.Instance.EnemyService.CreateEnemy(enemy);
                 GameService.Instance.EnemyService.AddEnemy(summonedEnemy);
