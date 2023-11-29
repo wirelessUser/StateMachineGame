@@ -1,3 +1,4 @@
+using StatePattern.CameraEffects;
 using StatePattern.Main;
 using UnityEngine;
 
@@ -17,10 +18,14 @@ namespace StatePattern.UI
         [Header("Gameplay UI")]
         private GameplayUIController gameplayController;
         [SerializeField] private GameplayUIView gameplayView;
-        [SerializeField] private CameraShake cameraShake;
+
+        [Header("Camera Effects")]
+        private CameraController cameraController;
+        [SerializeField] private CameraScriptableObject cameraScriptableObject;
 
         private void Start()
         {
+            cameraController = new CameraController(cameraScriptableObject);
             levelSelectionController = new LevelSelectionUIController(levelSelectionView, levelButtonPrefab);
             levelEndController = new LevelEndUIController(levelEndView);
             gameplayController = new GameplayUIController(gameplayView);
@@ -37,7 +42,7 @@ namespace StatePattern.UI
 
         public void ToggleKillOverlay(bool value) => gameplayController.ToggleKillOverlay(value);
 
-        public void ShakeCamera() => cameraShake.ShakeCamera();
+        public void ShakeCamera() => cameraController.ShakeCamera();
 
         public void GameWon()
         {

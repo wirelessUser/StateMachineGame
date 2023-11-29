@@ -1202,7 +1202,7 @@ MonoBehaviour:
   levelButtonPrefab: {fileID: 4564629246187517030, guid: d24c72e8c6e90f749acfcdfe234ba8dc, type: 3}
   levelEndView: {fileID: 1906479247}
   gameplayView: {fileID: 624815449}
-  cameraShake: {fileID: 0}
+  cameraScriptableObject: {fileID: 11400000, guid: 1d42ccc1eedec3d449d6220c0af8edca, type: 2}
 --- !u!1 &3889939497241893142
 GameObject:
   m_ObjectHideFlags: 0
