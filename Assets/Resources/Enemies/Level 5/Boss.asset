@@ -22,7 +22,7 @@ MonoBehaviour:
   RangeRadius: 6
   RangeAngle: 45
   RangeTeleporting: 5
-  IdleTime: 3
+  IdleTime: 9
   RotationSpeed: 500
   RotationThreshold: 0.5
   BulletData: {fileID: 0}
