@@ -25,5 +25,7 @@ MonoBehaviour:
   RotationThreshold: 0.5
   BulletData: {fileID: 11400000, guid: cfa5b8d473156f34f8a4255079c7aaa0, type: 2}
   RateOfFire: 1
-  PatrollingPoints: []
-  PlayerStoppingDistance: 0
+  PatrollingPoints:
+  - {x: 5.92, y: 1.5833333, z: 8}
+  - {x: 0.8, y: 1.5833333, z: 8}
+  PlayerStoppingDistance: 2
