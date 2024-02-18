@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace StatePattern.Enemy
 {
-    public class ShootingState : IState
+    public class ShootingState : IState, IStateMachine
     {
-        public OnePunchManController Owner { get; set; }
-        private OnePunchManStateMachine stateMachine;
+        public EnemyController Owner { get; set; }
+        private IStateMachine stateMachine;
         private PlayerController target;
         private float shootTimer;
 
-        public ShootingState(OnePunchManStateMachine stateMachine) => this.stateMachine = stateMachine;
+        public ShootingState(IStateMachine stateMachine) => this.stateMachine = stateMachine;
 
         public void OnStateEnter()
         {
@@ -53,5 +53,10 @@ namespace StatePattern.Enemy
         private bool IsRotationComplete(Quaternion desiredRotation) => Quaternion.Angle(Owner.Rotation, desiredRotation) < Owner.Data.RotationThreshold;
 
         private void ResetTimer() => shootTimer = Owner.Data.RateOfFire;
+
+        public void ChangeState(States newState)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
